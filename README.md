@@ -9,6 +9,13 @@
 </p>
 <!-- splarg-storefront:end -->
 
+<!-- splarg-itch-media:start -->
+<p align="center">
+  <a href="https://splarg.itch.io/i-dont-give-a-forklift"><img src="docs/itch/cover.jpg" alt="I Don't Give A Forklift cover art" width="640"></a>
+</p>
+<!-- splarg-itch-media:end -->
+
+
 **Docklands Shift Simulator · v1.40**
 
 A relaxed 3D browser forklift sim inspired by the dock job in *Shenmue*. Clock in, drive the harbour, collect crates with the forks, deliver them to colour-coded destinations and try to beat yesterday's work.
