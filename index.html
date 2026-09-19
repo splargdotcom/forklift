@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>I Don't Give A Forklift</title>
+<title>I Don't Give A Forklift · v1.40</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'Courier New',monospace;overflow:hidden;background:#000}
@@ -49,21 +49,67 @@ body{font-family:'Courier New',monospace;overflow:hidden;background:#000}
 .pkey{color:#ffcc33;font-family:'Courier New',monospace;font-size:11px}
 .pdesc{color:#666;font-family:'Courier New',monospace;font-size:11px}
 #pauseScreen .resume{color:#ffcc33;font-size:13px;font-family:'Courier New',monospace;margin-top:22px;text-align:center;letter-spacing:2px;animation:pulse 2s ease-in-out infinite}
+
+:root{--gold:#ffcc33;--ink:#111820;--muted:#a9b3bf;--blue:#7bd5ef}
+body{background:var(--ink)}button{font:inherit}button:focus-visible{outline:3px solid white;outline-offset:4px}
+#titleScreen{cursor:default;background:radial-gradient(ellipse at 60% 0%,#344951 0%,#17222a 42%,#0c1118 85%);padding:24px;overflow:auto}
+#titleScreen:before{content:'';position:absolute;top:0;left:0;right:0;height:12px;background:repeating-linear-gradient(130deg,#ffcc33 0 18px,#18222a 18px 36px)}
+#titleScreen h1{font-size:clamp(30px,5.4vw,66px);letter-spacing:-2px;line-height:.95;text-shadow:3px 4px 0 #0005;margin:15px 0 18px}
+#titleScreen .subtitle{color:#b6c7cc;letter-spacing:3px;margin:0 0 24px;font-size:12px}
+#titleScreen .controls{color:#a1b0b9;margin-top:22px;font-size:12px;max-width:680px}
+#titleScreen .foot{position:static;margin-top:24px;color:#72838d}
+.title-badge{color:#96d9c8;border:1px solid #547366;padding:6px 12px;font-size:10px;letter-spacing:2px}
+.mode-grid{display:flex;gap:12px;max-width:700px;flex-wrap:wrap;justify-content:center}
+.mode-button{width:292px;text-align:left;padding:20px;border:1px solid #fbd458;background:#ffcc33;color:#182128;cursor:pointer;border-radius:4px;transition:transform .15s}
+.mode-button:hover{transform:translateY(-3px);filter:brightness(1.08)}
+.mode-button b{display:block;font-size:18px;margin:0 0 8px}.mode-button small{display:block;font:12px/1.6 'Courier New',monospace}
+.mode-button.secondary{background:#1c2b36;border-color:#597081;color:#eff4f6}
+#saveNote{color:#b7c9cc;font-size:12px;line-height:1.7;margin-top:14px;max-width:620px;text-align:center}
+#ui{background:#0c1624e8;border:1px solid #516472;border-left:4px solid var(--gold);padding:12px 15px;min-width:205px;max-width:310px;border-radius:3px;font-size:12px;line-height:1.55;top:16px;left:16px}
+#dayDisplay{color:var(--gold);font-weight:bold;letter-spacing:2px}#clockDisplay{color:#abbcc8;font-size:11px}#todayWage{color:#a7e6bd}#totalWage{color:#fff;font-weight:bold}#jobType{opacity:1;color:#bfcdd5;font-size:11px}
+#missionPanel{position:absolute;top:16px;right:16px;z-index:12;width:244px;pointer-events:none;background:#0c1624e8;border:1px solid #516472;border-top:3px solid #7bd5ef;padding:12px;border-radius:3px;display:none;color:#d8e4e8;font-size:11px;line-height:1.5}
+#missionTitle{color:#7bd5ef;font-size:12px;font-weight:bold;letter-spacing:1px}#missionDetail{margin-top:5px}#goalList{color:#beced8;margin-top:9px;border-top:1px solid #46535c;padding-top:8px;line-height:1.8}
+#rushTimer{font-size:22px;color:var(--gold);font-weight:bold;margin:5px 0}#rushTrack{color:#c1cad0;font-size:10px}
+#minimap{display:block;width:218px;height:170px;margin-top:10px;background:#141f28;border:1px solid #3c505e}
+#mapKey{font-size:9px;color:#a1b7c5;margin-top:4px}
+#driveHUD{position:absolute;bottom:68px;left:16px;z-index:12;display:none;color:#d9e6ef;font-size:11px;line-height:1.6;background:#0c1624e8;border:1px solid #516472;padding:10px 14px;min-width:200px}
+#speedReadout{color:var(--gold);font-size:20px;font-weight:bold}#cargoReadout{color:#7bd5ef}#forkMeter{height:4px;background:#3e4b54;margin:5px 0}#forkFill{height:100%;background:#7bd5ef;width:0}
+#helpStrip{position:absolute;left:0;right:0;bottom:0;text-align:center;color:#a9bac6;background:#101b26ed;padding:9px;z-index:11;font-size:11px;display:none}
+#prompt{bottom:32px;background:#152533ed;border-color:#698091;padding:10px;color:white;line-height:1.5}
+#navArrow{bottom:100px;right:26px}#navDist{bottom:78px;right:8px;width:100px;color:white;background:#152533e8;padding:5px;font-size:11px}
+#bonusPopup{white-space:pre-line;background:#0c182ad9;padding:16px 24px;border-radius:4px;line-height:1.5;font-size:18px;top:31%}
+#debugBtns{bottom:41px!important;left:auto!important;right:15px}#btnFPS{display:none}
+.menu-actions{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:18px}.action{background:#ffcc33;border:0;color:#182128;padding:11px 16px;cursor:pointer;font-weight:bold;border-radius:3px;font-size:12px}.action.secondary{background:#273945;color:#e4edf3;border:1px solid #596d7a}
+#pausePanel,#summaryScreen>div,#shopScreen>div{min-width:0!important;max-height:92vh;overflow:auto;padding:24px!important}#pausePanel{max-width:540px}
+.pstat-label,.pdesc{color:#a1b0bd}#pauseSubtitle{color:#9cadb9}#summaryBody{font-size:12px!important}#arcadeCanvas{max-width:94vw;max-height:80vh}
+#loadError{display:none;position:fixed;inset:0;z-index:500;background:#111c29;color:white;padding:15vh 12vw;line-height:1.8}#loadError h2{color:#ffcc33}
+@media(max-width:760px){#missionPanel{width:193px;right:8px;top:8px;padding:9px}#minimap{width:173px;height:130px}#ui{left:8px;top:8px;padding:8px;min-width:160px;max-width:195px;font-size:11px}#helpStrip{font-size:9px}#driveHUD{font-size:10px;min-width:165px;left:8px}#goalList{font-size:10px}.mode-button{width:260px;padding:14px}#titleScreen .controls{font-size:10px;margin-top:12px}#titleScreen .foot{font-size:9px}}
+@media(max-height:640px){#titleScreen{justify-content:flex-start;padding-top:22px}#titleScreen h1{font-size:36px}#titleScreen .subtitle{margin-bottom:12px}#titleScreen .foot{margin-top:12px}#minimap{height:115px}#goalList{margin-top:5px}#missionPanel{font-size:10px}#rushTimer{font-size:18px}}
 </style>
 </head>
 <body>
 <div id="titleScreen">
+<div class="title-badge">v1.40 · THE BETTER SHIFT</div>
 <h1>I DON'T GIVE<br>A FORKLIFT</h1>
 <div class="subtitle">Docklands Shift Simulator</div>
-<div class="start">&#9654; CLICK TO START</div>
-<div class="controls">WASD &middot; Move &nbsp;&nbsp; E/Q &middot; Forks &nbsp;&nbsp; R &middot; Rotate view &nbsp;&nbsp; F &middot; Forklift<br>Z/X &middot; Zoom &nbsp;&nbsp; SPACE &middot; Interact &nbsp;&nbsp; M &middot; Music &nbsp;&nbsp; H &middot; Horn &nbsp;&nbsp; L &middot; Lights<br>V &middot; First Person</div>
+<div class="mode-grid">
+<button class="mode-button" id="resumeSaved" style="display:none"><b>CONTINUE YOUR SHIFT</b><small>Your forklift, cargo and pay are where you left them.</small></button>
+<button class="mode-button" id="startRush"><b>FIVE-MINUTE RUSH →</b><small>Straight into the driver's seat. Local routes, bonus targets and a medal to chase.</small></button>
+<button class="mode-button secondary" id="startDock"><b>TAKE A DOCK SHIFT</b><small>Clock in, explore the harbour and work at your own pace. No rush timer.</small></button>
+</div>
+<div id="saveNote">Move crates. Nail the landing. Try to give at least one forklift.</div>
+<div class="controls">WASD / arrows · drive &nbsp; E / Q · raise / lower forks &nbsp; SHIFT · brake<br>Line up the forks, raise E to collect, lower Q inside the target to deliver.<br>F · get in / out &nbsp; SPACE · interact &nbsp; P / ESC · pause &nbsp; TAB · map<br>R · turn camera &nbsp; Z / X · zoom &nbsp; V · first person &nbsp; H · horn &nbsp; M · music<br>Keyboard or standard gamepad required.</div>
 <div class="foot">A forklift game by a person who has never driven a forklift</div>
 </div>
+<div id="missionPanel"><div id="missionTitle">DISPATCH</div><div id="rushTimer"></div><div id="rushTrack"></div><div id="missionDetail"></div><div id="goalList"></div><canvas id="minimap" width="436" height="340" aria-label="Dock map with your position, crates and delivery target"></canvas><div id="mapKey">▲ YOU · □ CRATE · ◎ TARGET · TAB MAP</div></div>
+<div id="driveHUD"><div id="speedReadout">0 KM/H</div><div id="cargoReadout">FORKS EMPTY</div><div id="forkMeter"><div id="forkFill"></div></div><div id="forkReadout">FORKS 0.0m</div></div>
+<div id="helpStrip">WASD DRIVE · E/Q FORKS · SHIFT BRAKE · F IN/OUT · SPACE INTERACT · P PAUSE</div>
+<div id="loadError" role="alert"><h2>The dock couldn't open.</h2><p id="loadErrorText">The 3D engine needs an internet connection on first load. Check your connection, then reload this file.</p><button class="action" onclick="location.reload()">TRY AGAIN</button></div>
 <div id="ui" style="display:none">
 <div id="dayDisplay">DAY 1</div><div id="clockDisplay">7:00 AM</div>
 <div id="status">OFF DUTY</div><div id="jobType"></div><div id="boxCount"></div>
 <div id="todayWage"></div><div id="totalWage">TOTAL: $0.00</div>
-<div id="streakDisplay" style="font-size:11px;opacity:.6"></div>
+<div id="streakDisplay" style="font-size:11px;opacity:.8"></div><div id="saveStatus" style="font-size:10px;color:#ffb274"></div>
 </div>
 <div id="instructions" style="display:none"></div>
 <div id="prompt"><div id="promptText"></div></div>
@@ -83,13 +129,13 @@ body{font-family:'Courier New',monospace;overflow:hidden;background:#000}
     <div class="pstat-label">TOTAL</div><div class="pstat-val" id="ps-total">$0.00</div>
     <div class="pstat-label">BEST STREAK</div><div class="pstat-val" id="ps-streak">0</div>
     <div class="pstat-label">BEST BOXES</div><div class="pstat-val" id="ps-bestboxes">0</div>
-    <div class="pstat-label">UPGRADES</div><div class="pstat-val" id="ps-upgrades">0/18</div>
+    <div class="pstat-label">UPGRADES</div><div class="pstat-val" id="ps-upgrades">0/13</div>
   </div>
   <hr id="pauseDivider">
   <div id="pauseControls">
     <div class="pkey">W/A/S/D</div><div class="pdesc">Move / Steer</div>
     <div class="pkey">E / Q</div><div class="pdesc">Raise / Lower forks</div>
-    <div class="pkey">SPACE</div><div class="pdesc">Interact / Pause</div>
+    <div class="pkey">SPACE</div><div class="pdesc">Interact</div>
     <div class="pkey">F</div><div class="pdesc">Mount forklift</div>
     <div class="pkey">H</div><div class="pdesc">Horn</div>
     <div class="pkey">L</div><div class="pdesc">Lights</div>
@@ -97,9 +143,13 @@ body{font-family:'Courier New',monospace;overflow:hidden;background:#000}
     <div class="pkey">Z / X</div><div class="pdesc">Zoom out / in</div>
     <div class="pkey">M</div><div class="pdesc">Music</div>
     <div class="pkey">V</div><div class="pdesc">First Person</div>
-    <div class="pkey">P</div><div class="pdesc">Pause</div>
+    <div class="pkey">SHIFT</div><div class="pdesc">Brake</div>
+    <div class="pkey">P / ESC</div><div class="pdesc">Pause</div>
+    <div class="pkey">TAB</div><div class="pdesc">Toggle map</div>
+    <div class="pkey">B (pad)</div><div class="pdesc">Brake · Y enter/exit</div>
   </div>
-  <div class="resume">— SPACE / P TO RESUME —</div>
+  <div class="menu-actions"><button class="action" id="resumeButton">RESUME</button><button class="action secondary" id="endShiftButton">END SHIFT &amp; BANK PAY</button><button class="action secondary" id="recoverButton">RECOVER FORKLIFT</button><button class="action secondary" id="fullscreenButton">FULLSCREEN</button></div>
+  <div class="resume">— SPACE / P / ESC TO RESUME —</div>
 </div>
 </div>
 <div id="debugBtns" style="position:absolute;bottom:12px;left:12px;z-index:10;display:none;gap:4px;flex-wrap:wrap">
@@ -109,11 +159,11 @@ body{font-family:'Courier New',monospace;overflow:hidden;background:#000}
 <div id="bonusPopup" style="position:absolute;top:35%;left:50%;transform:translate(-50%,-50%);color:#33ff33;font-size:20px;font-family:'Courier New',monospace;z-index:15;pointer-events:none;opacity:0;text-shadow:0 0 12px rgba(51,255,51,.5);text-align:center;transition:opacity 0.3s"></div>
 <div id="summaryScreen" style="position:fixed;top:0;left:0;width:100%;height:100%;z-index:190;background:rgba(0,0,0,.88);display:none;flex-direction:column;justify-content:center;align-items:center">
   <div style="background:rgba(10,10,10,.95);border:1px solid #444;border-top:3px solid #ffcc33;padding:32px 40px;min-width:360px;max-width:520px;width:90%;font-family:'Courier New',monospace">
-    <h2 style="color:#ffcc33;font-size:24px;letter-spacing:4px;margin:0 0 6px;text-align:center">SHIFT COMPLETE</h2>
+    <h2 style="color:#ffcc33;font-size:24px;letter-spacing:4px;margin:0 0 6px;text-align:center" id="summaryHeading">SHIFT COMPLETE</h2>
     <div id="summaryDay" style="color:#555;font-size:11px;letter-spacing:2px;text-align:center;margin-bottom:20px"></div>
     <div id="summaryBody" style="color:#ccc;font-size:13px;line-height:2"></div>
     <div id="summaryTotal" style="color:#ffcc33;font-size:20px;text-align:center;margin-top:16px;letter-spacing:2px"></div>
-    <div style="color:#ffcc33;font-size:12px;margin-top:20px;text-align:center;letter-spacing:2px;animation:pulse 2s ease-in-out infinite">— SPACE TO CONTINUE —</div>
+    <div class="menu-actions"><button class="action" id="summaryContinue">CONTINUE</button><button class="action secondary" id="summaryMenu">BACK TO MENU</button></div>
   </div>
 </div>
 <div id="shopScreen" style="position:fixed;top:0;left:0;width:100%;height:100%;z-index:185;background:rgba(0,0,0,.85);display:none;flex-direction:column;justify-content:center;align-items:center">
@@ -124,9 +174,13 @@ body{font-family:'Courier New',monospace;overflow:hidden;background:#000}
     <div style="color:#33aaff;font-size:11px;margin-top:20px;text-align:center;letter-spacing:2px;animation:pulse 2s ease-in-out infinite">— P TO CLOSE —</div>
   </div>
 </div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+function showLoadError(message){document.getElementById('loadErrorText').textContent=message;document.getElementById('loadError').style.display='block'}
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" onerror="showLoadError('The 3D engine could not download. Connect to the internet and reload. This HTML uses Three.js from cdnjs.')"></script>
 <script>
 (function(){
+if(typeof THREE==='undefined')return;
 // ============================================================
 // GAME STATE
 // ============================================================
@@ -134,6 +188,7 @@ var nightLights=[];
 function isNight(){var h=G.gameTime/60;return h<6||h>19.5}
 
 var G={
+    mode:'dock',rushRemaining:300,rushBest:0,activeSeconds:0,shiftBestStreak:0,jobsCompleted:0,challengeBonusTotal:0,careBonusTotal:0,shiftCollisions:0,goals:{},mapVisible:true,saveWarning:false,
     day:1,gameTime:7*60,clockedIn:false,phase:'waking',
     shiftStartTime:0,todayWage:0,totalEarnings:0,
     wagePerBox:5.50,boxesMoved:0,targetBoxes:0,
@@ -174,30 +229,53 @@ var G={
 };
 
 
-// ── SAVE / LOAD ──────────────────────────────────────────────────────────
+// Versioned saves retain the old key so existing wages and upgrades migrate.
+var pendingResume=null,worldReady=false,lastAutosave=0;
+function finiteNumber(n,fallback,min,max){return typeof n==='number'&&Number.isFinite(n)?Math.max(min,Math.min(max,n)):fallback}
 function saveGame(){
-    try{localStorage.setItem('docklands_save',JSON.stringify({
-        day:G.day, totalEarnings:G.totalEarnings, arcadeHighScore:G.arcadeHighScore,
-        musicOn:G.musicOn, upgrades:G.upgrades, bestStreak:G.bestStreak,
-        bestBoxes:G.bestBoxes, bestWage:G.bestWage, dailyLog:G.dailyLog
-    }));}catch(e){}
+    if(pendingResume&&!G.gameStarted)return;
+    try{
+        var data={version:2,day:G.day,totalEarnings:G.totalEarnings,arcadeHighScore:G.arcadeHighScore,musicOn:G.musicOn,
+            upgrades:G.upgrades,bestStreak:G.bestStreak,bestBoxes:G.bestBoxes,bestWage:G.bestWage,dailyLog:G.dailyLog,rushBest:G.rushBest};
+        if(worldReady&&G.clockedIn&&!G.isFading){
+            var state={};snapshotKeys.forEach(function(k){state[k]=G[k]});
+            data.activeShift={state:state,player:[player.position.x,player.position.z,player.rotation.y],
+                forklift:[forklift.position.x,forklift.position.z,forklift.rotation.y],truckX:lorry.position.x,
+                boxes:boxes.filter(function(b){return !b.userData.moved}).map(function(b){
+                    var d=b.userData.destination;return {x:b.position.x,z:b.position.z,carried:b===G.carryingBox,
+                    jobType:b.userData.jobType,bayIdx:b.userData.bayIdx,fragile:!!b.userData.fragile,damaged:!!b.userData.damaged,
+                    homeX:b.userData.homeX,homeZ:b.userData.homeZ,dest:{name:d.name,colorName:d.colorName,color:d.color,x:d.center.x,z:d.center.z}};
+                })};
+        }
+        localStorage.setItem('docklands_save',JSON.stringify(data));G.saveWarning=false;
+    }catch(e){G.saveWarning=true}
 }
 function loadGame(){
-    try{var s=localStorage.getItem('docklands_save');if(!s)return;
-        var d=JSON.parse(s);
-        if(d.day)G.day=d.day;
-        if(d.totalEarnings)G.totalEarnings=d.totalEarnings;
-        if(d.arcadeHighScore)G.arcadeHighScore=d.arcadeHighScore;
-        if(typeof d.musicOn!=='undefined')G.musicOn=d.musicOn;
-        if(d.upgrades){for(var k in d.upgrades)G.upgrades[k]=d.upgrades[k]}
-        if(d.bestStreak)G.bestStreak=d.bestStreak;
-        if(d.bestBoxes)G.bestBoxes=d.bestBoxes;
-        if(d.bestWage)G.bestWage=d.bestWage;
-        if(d.dailyLog)G.dailyLog=d.dailyLog;
-        // Set yesterday's boxes from log
-        if(G.dailyLog.length>0)G.yesterdayBoxes=G.dailyLog[G.dailyLog.length-1].boxes;
-        applyUpgrades();
+    try{
+        var d=JSON.parse(localStorage.getItem('docklands_save')||'null');if(!d||typeof d!=='object')return;
+        G.day=Math.floor(finiteNumber(d.day,1,1,100000));
+        ['totalEarnings','arcadeHighScore','bestStreak','bestBoxes','bestWage','rushBest'].forEach(function(k){G[k]=finiteNumber(d[k],0,0,1e9)});
+        if(typeof d.musicOn==='boolean')G.musicOn=d.musicOn;
+        var limits={speed:5,brakes:4,forkSpeed:4};Object.keys(limits).forEach(function(k){G.upgrades[k]=Math.floor(finiteNumber(d.upgrades&&d.upgrades[k],0,0,limits[k]))});
+        if(Array.isArray(d.dailyLog))G.dailyLog=d.dailyLog.filter(function(x){return x&&Number.isFinite(x.boxes)&&Number.isFinite(x.wage)&&Number.isFinite(x.day)&&Number.isFinite(x.perfects)}).slice(-10);
+        if(G.dailyLog.length)G.yesterdayBoxes=G.dailyLog[G.dailyLog.length-1].boxes;
+        if(d.version===2&&validSnapshot(d.activeShift))pendingResume=d.activeShift;
     }catch(e){}
+}
+var snapshotKeys=['day','gameTime','clockedIn','phase','shiftStartTime','todayWage','boxesMoved','targetBoxes','inForklift','lightsOn','forkHeight','weather','currentJob','deliveryCount','nextJobTimer','truck','precisionBonusTotal','streak','shiftBestStreak','shiftBoxesDelivered','shiftPerfectDrops','mode','rushRemaining','activeSeconds','jobsCompleted','challengeBonusTotal','careBonusTotal','shiftCollisions','goals'];
+function validSnapshot(a){
+    if(!a||!a.state||!a.state.clockedIn||!Array.isArray(a.boxes)||a.boxes.length>30)return false;
+    if(![a.player,a.forklift].every(function(v){return Array.isArray(v)&&v.length===3&&v.every(function(n){return Number.isFinite(n)&&Math.abs(n)<10000})}))return false;
+    var q=a.state;
+    var nums=['day','gameTime','shiftStartTime','todayWage','boxesMoved','targetBoxes','forkHeight','deliveryCount','nextJobTimer','precisionBonusTotal','streak','shiftBestStreak','shiftBoxesDelivered','shiftPerfectDrops','rushRemaining','activeSeconds','jobsCompleted','challengeBonusTotal','careBonusTotal','shiftCollisions'];
+    if(!nums.every(function(k){return Number.isFinite(q[k])&&q[k]>=0&&q[k]<=1e9}))return false;
+    if(q.forkHeight>3||q.gameTime>1440||q.rushRemaining>300||q.phase!=='clocked_in'||!['dock','rush'].includes(q.mode)||!['clear','overcast','rain','fog'].includes(q.weather))return false;
+    if(typeof q.inForklift!=='boolean'||typeof q.lightsOn!=='boolean'||!q.goals||typeof q.goals!=='object'||Array.isArray(q.goals))return false;
+    var tr=q.truck,j=q.currentJob;
+    if(!tr||!['arriving','parked','waiting','departing','offscreen'].includes(tr.phase)||!['delay','targetX','targetZ','bayIdx'].every(function(k){return Number.isFinite(tr[k])})||tr.bayIdx<0||tr.bayIdx>=5)return false;
+    if(!j||!['load','unload'].includes(j.type)||!Number.isInteger(j.total)||j.total<1||j.total>6||!Number.isInteger(j.delivered)||j.delivered<0||j.delivered>j.total||!Number.isInteger(j.bayIdx)||j.bayIdx<0||j.bayIdx>=5||typeof j.spawned!=='boolean'||!Number.isFinite(a.truckX))return false;
+    if(q.todayWage>1e7||Math.abs(a.truckX)>1000)return false;
+    return a.boxes.every(function(b){return b.dest&&typeof b.dest.name==='string'&&typeof b.dest.colorName==='string'&&['load','unload'].includes(b.jobType)&&[b.x,b.z,b.homeX,b.homeZ,b.dest.x,b.dest.z,b.dest.color].every(Number.isFinite)})&&a.boxes.filter(function(b){return b.carried}).length<=1;
 }
 loadGame();
 
@@ -217,7 +295,7 @@ function applyUpgrades(){UPGRADES.forEach(function(u){u.apply(G.upgrades[u.key])
 applyUpgrades();
 
 function buyUpgrade(idx){
-    var up=UPGRADES[idx];if(G.upgrades[up.key]>=up.maxLvl)return;
+    var up=UPGRADES[idx];if(!G.shopOpen||!up||G.upgrades[up.key]>=up.maxLvl)return;
     var cost=upgradeCost(up);var bal=G.totalEarnings;
     if(bal<cost)return;
     G.totalEarnings-=cost;G.upgrades[up.key]++;
@@ -246,12 +324,12 @@ function renderShop(){
 window.buyUpgrade=buyUpgrade;
 
 function openShop(){
-    G.shopOpen=true;renderShop();
+    G.shopOpen=true;clearInputs();releasePointer();beepOff();renderShop();
     document.getElementById('shopScreen').style.display='flex';
     if(audioCtx)audioCtx.suspend();
 }
 function closeShop(){
-    G.shopOpen=false;
+    G.shopOpen=false;clearInputs();
     document.getElementById('shopScreen').style.display='none';
     if(audioCtx&&!G.paused)audioCtx.resume();
 }
@@ -277,8 +355,8 @@ function updateBonusPopup(dt){
 function showShiftSummary(){
     var base=G.shiftBoxesDelivered*G.wagePerBox;
     var prec=G.precisionBonusTotal;
-    var streakBonus=G.bestStreak>=3?(G.bestStreak*1.5):0;
-    var total=base+prec+streakBonus;
+    var streakBonus=G.shiftBestStreak>=3?(G.shiftBestStreak*1.5):0;
+    var total=base+prec+streakBonus+G.challengeBonusTotal+G.careBonusTotal;
     G.todayWage=Math.max(0,total);
 
     // Record this day
@@ -295,16 +373,28 @@ function showShiftSummary(){
     var body='';
     body+='<div style="display:flex;justify-content:space-between"><span style="color:#888">Boxes delivered</span><span>'+G.shiftBoxesDelivered+' × $'+G.wagePerBox.toFixed(2)+' = $'+base.toFixed(2)+'</span></div>';
     if(prec>0)body+='<div style="display:flex;justify-content:space-between"><span style="color:#33aaff">Precision bonuses</span><span style="color:#33aaff">+$'+prec.toFixed(2)+'</span></div>';
-    if(streakBonus>0)body+='<div style="display:flex;justify-content:space-between"><span style="color:#ffaa33">Streak bonus (×'+G.bestStreak+')</span><span style="color:#ffaa33">+$'+streakBonus.toFixed(2)+'</span></div>';
+    if(streakBonus>0)body+='<div style="display:flex;justify-content:space-between"><span style="color:#ffaa33">Streak bonus (×'+G.shiftBestStreak+')</span><span style="color:#ffaa33">+$'+streakBonus.toFixed(2)+'</span></div>';
     body+='<div style="border-top:1px solid #333;margin-top:8px;padding-top:8px;display:flex;justify-content:space-between"><span style="color:#888">Perfect drops</span><span>'+G.shiftPerfectDrops+'</span></div>';
-    body+='<div style="display:flex;justify-content:space-between"><span style="color:#888">Best streak</span><span>'+G.bestStreak+'</span></div>';
+    body+='<div style="display:flex;justify-content:space-between"><span style="color:#888">Best streak</span><span>'+G.shiftBestStreak+'</span></div>';
     // Comparison lines
     body+='<div style="border-top:1px solid #333;margin-top:8px;padding-top:8px">';
     if(isNewBestBoxes)body+='<div style="color:#ffcc33;text-align:center">NEW PERSONAL BEST: '+G.bestBoxes+' BOXES</div>';
     else body+='<div style="display:flex;justify-content:space-between"><span style="color:#888">Personal best</span><span style="color:#ffcc33">'+G.bestBoxes+' boxes</span></div>';
     if(beatYesterday)body+='<div style="color:#33ff33;text-align:center">BEAT YESTERDAY (+' +(G.shiftBoxesDelivered-prevYesterday)+')</div>';
     body+='</div>';
-    document.getElementById('summaryDay').textContent='DAY '+G.day;
+    if(G.challengeBonusTotal)body+='<div style="color:#a7e6bd">Challenge bonuses: +$'+G.challengeBonusTotal.toFixed(2)+'</div>';
+    if(G.careBonusTotal)body+='<div style="color:#a7e6bd">Careful cargo bonuses: +$'+G.careBonusTotal.toFixed(2)+'</div>';
+    body+='<div style="color:#b3c2cd">Jobs completed: '+G.jobsCompleted+' · Bumps: '+G.shiftCollisions+'</div>';
+    var medal=G.shiftBoxesDelivered>=10?'GOLD':G.shiftBoxesDelivered>=6?'SILVER':G.shiftBoxesDelivered>=3?'BRONZE':'TRAINEE';
+    if(G.mode==='rush'){
+        G.rushBest=Math.max(G.rushBest,G.shiftBoxesDelivered);
+        body+='<div style="color:#ffcc33;text-align:center;margin-top:12px">'+medal+' · PERSONAL BEST '+G.rushBest+' BOXES</div>';
+        body+='<div style="color:#b3c2cd;text-align:center">'+(medal==='GOLD'?'Management is suspicious of your competence.':medal==='SILVER'?'The tea can wait. You are getting good at this.':medal==='BRONZE'?'Certified to move things slightly further away.':'The boxes have requested a second opinion.')+'</div>';
+    }
+    document.getElementById('summaryHeading').textContent=G.mode==='rush'?'RUSH COMPLETE':'SHIFT COMPLETE';
+    document.getElementById('summaryContinue').textContent=G.mode==='rush'?'ANOTHER FIVE MINUTES':'CONTINUE';
+    document.getElementById('summaryDay').textContent='DAY '+G.day+(G.mode==='rush'?' · FIVE-MINUTE RUSH':'');
+    clearInputs();releasePointer();beepOff();if(audioCtx)audioCtx.suspend();
     document.getElementById('summaryBody').innerHTML=body;
     document.getElementById('summaryTotal').textContent='SHIFT TOTAL: $'+G.todayWage.toFixed(2);
     G.showSummary=true;
@@ -312,14 +402,15 @@ function showShiftSummary(){
 }
 function dismissSummary(){
     G.showSummary=false;
-    document.getElementById('summaryScreen').style.display='none';
+    document.getElementById('summaryScreen').style.display='none';clearInputs();
+    if(G.mode==='rush'){startGame('rush')}else if(audioCtx)audioCtx.resume();
 }
 
 // ============================================================
 // AUDIO
 // ============================================================
 var audioCtx=null;
-function aud(){if(!audioCtx)audioCtx=new(window.AudioContext||window.webkitAudioContext)();if(audioCtx.state==='suspended')audioCtx.resume();return audioCtx}
+function aud(){if(!audioCtx)audioCtx=new(window.AudioContext||window.webkitAudioContext)();return audioCtx}
 
 // Engine hum — pitch follows velocity (triangle + sub-harmonic + lowpass for a warm rumble)
 var engineOsc=null,engineOsc2=null,engineGain=null,engineFilter=null,engineStarted=false;
@@ -423,7 +514,7 @@ function setMusicVolume(on){
     if(music.masterGain)music.masterGain.gain.setTargetAtTime(on?0.06:0,audioCtx.currentTime,0.1);
 }
 
-function tone(f,d,t,v){t=t||'square';v=v||0.07;var c=aud(),o=c.createOscillator(),g=c.createGain();o.type=t;o.frequency.value=f;g.gain.value=v;g.gain.linearRampToValueAtTime(0,c.currentTime+d);o.connect(g);g.connect(c.destination);o.start();o.stop(c.currentTime+d)}
+function tone(f,d,t,v){if(!G.gameStarted||G.paused||G.shopOpen||G.showSummary||document.hidden)return;t=t||'square';v=v||0.07;var c=aud(),o=c.createOscillator(),g=c.createGain();o.type=t;o.frequency.value=f;g.gain.value=v;g.gain.linearRampToValueAtTime(0,c.currentTime+d);o.connect(g);g.connect(c.destination);o.onended=function(){o.disconnect();g.disconnect()};o.start();o.stop(c.currentTime+d)}
 function sfxHorn(){
     var c=aud();var o1=c.createOscillator(),o2=c.createOscillator(),g=c.createGain();
     o1.type='sawtooth';o2.type='square';o1.frequency.value=220;o2.frequency.value=232;
@@ -434,9 +525,10 @@ function sfxHorn(){
     o1.connect(g);o2.connect(g);g.connect(c.destination);
     lfo.start();o1.start();o2.start();lfo.stop(c.currentTime+0.7);o1.stop(c.currentTime+0.7);o2.stop(c.currentTime+0.7);
 }
-var beepInt=null;
-function beepOn(){if(beepInt)return;beepInt=setInterval(function(){tone(1000,0.12,'square',0.05)},500);tone(1000,0.12,'square',0.05)}
-function beepOff(){if(beepInt){clearInterval(beepInt);beepInt=null}}
+var beepTimer=0;
+function beepOn(){beepTimer=0}
+function beepOff(){beepTimer=0;G.isReversing=false}
+
 function sfxPickup(){tone(300,0.08);setTimeout(function(){tone(450,0.1)},80)}
 function sfxDrop(){tone(400,0.06);setTimeout(function(){tone(250,0.12)},60)}
 function sfxClockIn(){tone(523,0.1,'sine',0.08);setTimeout(function(){tone(659,0.1,'sine',0.08)},120);setTimeout(function(){tone(784,0.15,'sine',0.08)},240)}
@@ -450,7 +542,7 @@ function sfxShip(){tone(85,0.6,'sawtooth',0.06);setTimeout(function(){tone(75,0.
 var scene=new THREE.Scene();
 scene.fog=new THREE.FogExp2(0x8899aa,0.0025);
 var camera=new THREE.PerspectiveCamera(60,innerWidth/innerHeight,0.1,800);
-var renderer=new THREE.WebGLRenderer({antialias:false,powerPreference:"high-performance"});
+var renderer;try{renderer=new THREE.WebGLRenderer({antialias:false,powerPreference:"high-performance"})}catch(e){showLoadError('WebGL is unavailable. Enable hardware acceleration in your browser, then reload.');return}
 renderer.setSize(innerWidth,innerHeight);
 renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;
 renderer.setClearColor(0x5588bb);document.body.appendChild(renderer.domElement);
@@ -512,9 +604,11 @@ var pixelMat=new THREE.ShaderMaterial({
     ].join('\n')
 });
 pixelScene.add(new THREE.Mesh(new THREE.PlaneGeometry(2,2),pixelMat));
-window.addEventListener('blur',function(){if(audioCtx)audioCtx.suspend();saveGame();});
-window.addEventListener('visibilitychange',function(){if(document.hidden){if(audioCtx)audioCtx.suspend();saveGame();}else{if(audioCtx&&!G.paused)audioCtx.resume();}});
-window.addEventListener('focus',function(){if(audioCtx&&!G.paused)audioCtx.resume();});
+function loseFocus(){clearInputs();if(G.gameStarted&&!G.isFading)setPaused(true);if(audioCtx)audioCtx.suspend();saveGame()}
+window.addEventListener('blur',loseFocus);
+document.addEventListener('visibilitychange',function(){if(document.hidden)loseFocus()});
+window.addEventListener('pagehide',saveGame);
+
 var _resizeRAF=null;
 window.addEventListener('resize',function(){
   if(_resizeRAF)cancelAnimationFrame(_resizeRAF);
@@ -555,7 +649,7 @@ scene.add(sun);
 // ============================================================
 function lerpColor(a,b,t){return new THREE.Color(a).lerp(new THREE.Color(b),t)}
 function updateSky(time){
-    var h=time/60,skyCol,sunInt,ambInt,fogCol;
+    var h=time/60,skyCol,sunInt,ambInt,fogCol,night=isNight();
     if(h<6){skyCol=0x182030;sunInt=0;ambInt=0.45;fogCol=0x1a2230}
     else if(h<7){var t=h-6;skyCol=lerpColor(0x182030,0xdd8844,t);sunInt=t*0.5;ambInt=0.45+t*0.05;fogCol=lerpColor(0x1a2230,0xaa7755,t)}
     else if(h<9){var t=(h-7)/2;skyCol=lerpColor(0xdd8844,0x5588bb,t);sunInt=0.5+t*0.5;ambInt=0.45+t*0.1;fogCol=lerpColor(0xaa7755,0x8899aa,t)}
@@ -582,7 +676,6 @@ function updateSky(time){
     sun.position.copy(lightOffset);
     if(sunElev<0.01)sun.intensity=0; // below horizon
     // Night lights
-    var night=isNight();
     for(var i=0;i<nightLights.length;i++){
         var l=nightLights[i];
         if(l.userData&&l.userData.type==='headlight'){l.intensity=(G.lightsOn||(night&&G.inForklift))?2:0}
@@ -601,9 +694,11 @@ function checkCol(x,z,r){for(var i=0;i<colliders.length;i++){var c=colliders[i];
 function checkSolid(x,z,r){
     if(checkCol(x,z,r))return true;
     if(G.truck.phase!=='offscreen'){
-        var lx=lorry.position.x,lz=lorry.position.z;
-        if(x+r>lx-2.4&&x-r<lx+2.4&&z+r>lz-6.6&&z-r<lz+6.6)return true;
+        var dx=x-lorry.position.x,dz=z-lorry.position.z,c=Math.cos(lorry.rotation.y),s=Math.sin(lorry.rotation.y);
+        var lx=dx*c-dz*s,lz=dx*s+dz*c;
+        if(Math.abs(lx)<1.9+r&&lz>-5.5-r&&lz<6.6+r)return true;
     }
+
     return false;
 }
 
@@ -902,8 +997,7 @@ function charSpec(ch){
         case 'Y': return {mat:matTar,y:0.0};
         case 'A': return {mat:matTar,y:0.0};
         case 'O': return {mat:matConc,y:0.0};
-        case 'F': return {mat:matConc,y:0.0};
-        case '-': return {mat:matTar,y:0.0};
+        case 'F': return {mat:matConc,y:0.0};        case '-': return {mat:matTar,y:0.0};
         case 'P': return {mat:matPave,y:0.0};
         case 'c': return {mat:matConc,y:0.0};
         default: return null;
@@ -1036,7 +1130,7 @@ scene.add(rain)})();
 // WAREHOUSES — 8 total
 // ============================================================
 var whData=(MAP_ZONES.warehouseRow||[]).slice();
-var whZones=[];
+var whZones=[],warehouseRoofs=[];
 var matPadConc=toonMat({color:0x888888});matPadConc.polygonOffset=true;matPadConc.polygonOffsetFactor=-4;matPadConc.polygonOffsetUnits=-4;
 whData.forEach(function(wh){
     var wc=MAP_MARKERS.warehouseCenters[wh.markerIdx], wt=tileCenter(wc.c,wc.r);
@@ -1045,7 +1139,7 @@ whData.forEach(function(wh){
     var bw=new THREE.Mesh(new THREE.BoxGeometry(wh.w,8,0.5),matWht);bw.position.set(wh.cx,4,wh.cz-wh.d/2);bw.castShadow=true;scene.add(bw);addCol(wh.cx,wh.cz-wh.d/2,wh.w,0.5);
     var sw1=new THREE.Mesh(new THREE.BoxGeometry(0.5,8,wh.d),matWht);sw1.position.set(wh.cx-wh.w/2,4,wh.cz);sw1.castShadow=true;scene.add(sw1);addCol(wh.cx-wh.w/2,wh.cz,0.5,wh.d);
     var sw2=sw1.clone();sw2.position.x=wh.cx+wh.w/2;scene.add(sw2);addCol(wh.cx+wh.w/2,wh.cz,0.5,wh.d);
-    var rf=new THREE.Mesh(new THREE.BoxGeometry(wh.w+1,0.3,wh.d+1),matMtl);rf.position.set(wh.cx,8.1,wh.cz);rf.castShadow=true;scene.add(rf);
+    var rf=new THREE.Mesh(new THREE.BoxGeometry(wh.w+1,0.3,wh.d+1),matMtl);rf.position.set(wh.cx,8.1,wh.cz);rf.castShadow=true;rf.material=matMtl.clone();scene.add(rf);warehouseRoofs.push({mesh:rf,x:wh.cx,z:wh.cz,name:wh.name});
     var cs=new THREE.Mesh(new THREE.BoxGeometry(wh.w-1,1.8,0.1),wh.mat);cs.position.set(wh.cx,6,wh.cz-wh.d/2+0.3);scene.add(cs);
     var lb=new THREE.Mesh(new THREE.BoxGeometry(2.5,0.6,0.6),wh.mat);lb.position.set(wh.cx,8.5,wh.cz+wh.d/2);scene.add(lb);
     whZones.push({name:wh.name,colorName:wh.colorName,color:wh.color,center:new THREE.Vector3(wh.cx,0,wh.cz)});
@@ -1597,7 +1691,7 @@ forksGroup.add((function(){var m=new THREE.Mesh(new THREE.BoxGeometry(0.18,0.6,0
 forksGroup.add((function(){var m=new THREE.Mesh(new THREE.BoxGeometry(0.18,0.6,0.15),fkM);m.position.set(0.45,0.6,1.65);return m})());
 forksGroup.add((function(){var m=new THREE.Mesh(new THREE.BoxGeometry(1.7,0.9,0.12),toonMat({color:0x666666}));m.position.set(0,0.65,1.6);return m})());
 forklift.add(forksGroup);
-var forkliftSpawn=getSpawnWorld('forklift');forklift.position.set(forkliftSpawn.x,0.008,forkliftSpawn.z);forklift.rotation.y=forkliftSpawn.rot||0;scene.add(forklift);
+var forkliftSpawn=getSpawnWorld('forklift');forklift.position.set(89,0.008,-69);forklift.rotation.y=forkliftSpawn.rot||0;scene.add(forklift);
 
 // ============================================================
 // PLAYER
@@ -1610,7 +1704,7 @@ player.add((function(){var m=new THREE.Mesh(new THREE.BoxGeometry(0.6,0.15,0.6),
 player.add((function(){var m=new THREE.Mesh(new THREE.BoxGeometry(0.75,0.6,0.5),toonMat({color:0xccdd33}));m.position.set(0,1.7,0);return m})());
 player.add((function(){var m=new THREE.Mesh(new THREE.BoxGeometry(0.3,0.8,0.35),toonMat({color:0x333344}));m.position.set(-0.18,0.5,0);return m})());
 player.add((function(){var m=new THREE.Mesh(new THREE.BoxGeometry(0.3,0.8,0.35),toonMat({color:0x333344}));m.position.set(0.18,0.5,0);return m})());
-var playerSpawn=getSpawnWorld('player');player.position.set(playerSpawn.x,0,playerSpawn.z);player.rotation.y=playerSpawn.rot||0;scene.add(player);
+var playerSpawn=getSpawnWorld('player');player.position.set(83,0,-73);player.rotation.y=playerSpawn.rot||0;scene.add(player);
 (function(){
   if(!MAP_OBJECTS.spawn) return;
   var sg=new THREE.Group(); sg.name='spawnMarkers';
@@ -1749,32 +1843,30 @@ var trafficTimer=15+Math.random()*20;
 // ============================================================
 var boxGeo=new THREE.BoxGeometry(1.5,1.5,1.5);var boxes=[];
 
-function spawnJob(){
-    var type=Math.random()>0.45?'unload':'load';
-    var count=3+Math.floor(Math.random()*4);
-    var bayIdx=Math.floor(Math.random()*loadingBays.length);
-    var bay=loadingBays[bayIdx];
-    if(type==='unload'){
-        G.currentJob={type:'unload',total:count,bayIdx:bayIdx,spawned:false};
-        sendTruck(bayIdx);
-    }else{
-        var whIdx=Math.floor(Math.random()*whData.length);
-        var wh=whData[whIdx];
-        var useAnnex=Math.random()>0.85;
-        var sx=useAnnex?-120:wh.cx,sz=useAnnex?-90:wh.cz;
-        for(var i=0;i<count;i++){
-            var mat=toonMat({color:0xddbb66});var box=new THREE.Mesh(boxGeo,mat);
-            box.position.set(sx-4+(i%4)*2.5,0.75,sz+3+Math.floor(i/4)*2);
-            box.castShadow=true;box.receiveShadow=true;
-            box.userData={moved:false,destination:{name:bay.label,colorName:'LORRY',color:0xddbb66,center:new THREE.Vector3(bay.x-2,0,bay.z)},justDropped:false,jobType:'load',bayIdx:bayIdx};
-            scene.add(box);boxes.push(box);
-        }
-        G.currentJob={type:'load',total:count,whName:wh.name,bayLabel:bay.label};
-        G.targetBoxes+=count;sendTruck(bayIdx);
-    }
-    G.deliveryCount++;
+function clearBoxes(){boxes.forEach(function(b){if(b.parent)b.parent.remove(b);b.material.dispose()});boxes=[];G.carryingBox=null;G.nearBox=null}
+function createCargo(x,z,dest,type,fragile){
+    var box=new THREE.Mesh(boxGeo,toonMat({color:dest.color}));box.position.set(x,0.75,z);box.castShadow=true;box.receiveShadow=true;
+    box.userData={moved:false,destination:dest,justDropped:false,jobType:type,fragile:!!fragile,damaged:false,homeX:x,homeZ:z};
+    scene.add(box);boxes.push(box);return box;
 }
-function allDone(){for(var i=0;i<boxes.length;i++){if(!boxes[i].userData.moved)return false}return true}
+function spawnJob(){
+    G.nextJobTimer=0;
+    var intro=G.deliveryCount===0;
+    var type=G.mode==='rush'?(G.deliveryCount%2?'load':'unload'):(intro?'unload':Math.random()>0.45?'unload':'load');
+    var count=G.mode==='rush'?2:3+Math.floor(Math.random()*3);
+    var bayIdx=(intro||G.mode==='rush')?4:Math.floor(Math.random()*loadingBays.length);
+    var bay=loadingBays[bayIdx];
+    var fragile=G.deliveryCount%3===1;
+    G.currentJob={type:type,total:count,delivered:0,bayIdx:bayIdx,spawned:type==='load',fragile:fragile,completed:false};
+    if(type==='load'){
+        var wh=G.mode==='rush'?whZones[7]:(Math.random()<0.15?whZones[6]:whZones[Math.floor(Math.random()*6)]);
+        for(var i=0;i<count;i++)createCargo(wh.center.x-4+(i%3)*3.2,wh.center.z+3+Math.floor(i/3)*3.5,
+            {name:bay.label,colorName:'LORRY',color:0xddbb66,center:new THREE.Vector3(bay.x-12,0,bay.z)},'load',fragile);
+        G.currentJob.whName=wh.name;G.currentJob.bayLabel=bay.label;G.targetBoxes+=count;
+    }
+    G.deliveryCount++;sendTruck(bayIdx);
+}
+function allDone(){if(G.currentJob&&!G.currentJob.spawned)return false;return boxes.every(function(b){return b.userData.moved})}
 function sendTruck(bi){if(G.truck.phase!=='offscreen')return;var bay=loadingBays[bi||0];G.truck.phase='arriving';G.truck.bayIdx=bi||0;G.truck.targetX=bay.x+4;G.truck.targetZ=bay.z;lorry.position.set(300,0,bay.z);lorry.rotation.y=-Math.PI/2}
 
 // ============================================================
@@ -1798,7 +1890,7 @@ var keys={};
 // ============================================================
 // GAMEPAD
 // ============================================================
-var pad={lx:0,ly:0,rx:0,ry:0,lt:0,rt:0,a:false,b:false,x:false,y:false,lb:false,rb:false,back:false,
+var pad={lx:0,ly:0,rx:0,ry:0,lt:0,rt:0,a:false,b:false,x:false,y:false,lb:false,rb:false,back:false,start:false,
     _prev:{a:false,b:false,x:false,y:false,lb:false,rb:false,back:false}};
 function padPressed(btn){return pad[btn]&&!pad._prev[btn]}
 function pollGamepad(){
@@ -1806,14 +1898,14 @@ function pollGamepad(){
     var gp=null;for(var i=0;i<gps.length;i++){if(gps[i]&&gps[i].connected){gp=gps[i];break}}
     // Store previous button states for edge detection
     pad._prev.a=pad.a;pad._prev.b=pad.b;pad._prev.x=pad.x;pad._prev.y=pad.y;
-    pad._prev.lb=pad.lb;pad._prev.rb=pad.rb;pad._prev.back=pad.back;
+    pad._prev.lb=pad.lb;pad._prev.rb=pad.rb;pad._prev.back=pad.back;pad._prev.start=pad.start;
     if(!gp){pad.lx=0;pad.ly=0;pad.rx=0;pad.ry=0;pad.lt=0;pad.rt=0;
         pad.a=false;pad.b=false;pad.x=false;pad.y=false;pad.lb=false;pad.rb=false;pad.back=false;pad.start=false;return}
     var dz=0.15;
-    pad.lx=Math.abs(gp.axes[0])<dz?0:gp.axes[0];
-    pad.ly=Math.abs(gp.axes[1])<dz?0:gp.axes[1];
-    pad.rx=Math.abs(gp.axes[2])<dz?0:gp.axes[2];
-    pad.ry=Math.abs(gp.axes[3])<dz?0:gp.axes[3];
+    pad.lx=Math.abs(gp.axes[0]||0)<dz?0:gp.axes[0];
+    pad.ly=Math.abs(gp.axes[1]||0)<dz?0:gp.axes[1];
+    pad.rx=Math.abs(gp.axes[2]||0)<dz?0:gp.axes[2];
+    pad.ry=Math.abs(gp.axes[3]||0)<dz?0:gp.axes[3];
     // Triggers: some gamepads use axes 4/5, others use buttons 6/7
     pad.lt=gp.buttons[6]?gp.buttons[6].value:0;
     pad.rt=gp.buttons[7]?gp.buttons[7].value:0;
@@ -1826,60 +1918,40 @@ function pollGamepad(){
     pad.back=gp.buttons[8]?gp.buttons[8].pressed:false;
     pad.start=gp.buttons[9]?gp.buttons[9].pressed:false;
 }
+function clearInputs(){keys={};if(typeof ARC!=='undefined'&&ARC)ARC.keys={}}
+function releasePointer(){if(document.pointerLockElement&&document.exitPointerLock)document.exitPointerLock()}
+function setPaused(value){
+    G.paused=value;clearInputs();beepOff();releasePointer();
+    document.getElementById('pauseScreen').style.display=value?'flex':'none';
+    if(value){updatePauseStats();if(audioCtx)audioCtx.suspend()}
+    else if(audioCtx&&!G.shopOpen&&!G.showSummary)audioCtx.resume();
+    accumulator=0;lastTime=performance.now();
+}
 window.addEventListener('keydown',function(e){
-    // Shop close on P
-    if(e.key.toLowerCase()==='p'&&G.shopOpen){e.preventDefault();closeShop();return}
-    // Summary dismiss on SPACE or ENTER
-    if((e.key===' '||e.key==='Enter')&&G.showSummary){e.preventDefault();dismissSummary();return}
-    // SPACE: interact if near something, otherwise pause
-    if(e.key===' '&&G.gameStarted&&!G.arcadeActive&&!G.shopOpen&&!G.showSummary){
-        e.preventDefault();
-        if(G.paused){
-            G.paused=false;
-            document.getElementById('pauseScreen').style.display='none';
-            if(audioCtx)audioCtx.resume();
-            return;
-        }
-        // Check if near anything interactable (matches handleSpace logic)
-        var canInteract=
-            (G.nearBed&&(G.phase==='shift_done'||G.phase==='waking'||G.phase==='free'))||
-            (G.nearTimeClock&&!G.clockedIn&&G.phase!=='sleeping')||
-            (G.nearTimeClock&&G.clockedIn)||
-            (G.nearArcade&&!G.inForklift)||
-            (G.nearOffice&&!G.clockedIn&&!G.inForklift);
-        if(canInteract){
-            handleSpace();
-        }else{
-            G.paused=true;
-            document.getElementById('pauseScreen').style.display='flex';
-            keys={};updatePauseStats();if(audioCtx)audioCtx.suspend();
-        }
-        return;
-    }
-    // P: always pause toggle
-    if(e.key.toLowerCase()==='p'&&G.gameStarted&&!G.arcadeActive&&!G.shopOpen&&!G.showSummary){
-        e.preventDefault();
-        G.paused=!G.paused;
-        document.getElementById('pauseScreen').style.display=G.paused?'flex':'none';
-        if(G.paused){keys={};updatePauseStats();if(audioCtx)audioCtx.suspend();}
-        else{if(audioCtx)audioCtx.resume();}
-        return;
-    }
-    // Time speed — works even when paused
-    if(e.key==='['){var speeds=[0.25,0.5,1,2,4];var ci=speeds.indexOf(G.timeScale);G.timeScale=speeds[Math.max(0,ci-1)];showTimeSpeed();return}
-    if(e.key===']'){var speeds=[0.25,0.5,1,2,4];var ci=speeds.indexOf(G.timeScale);G.timeScale=speeds[Math.min(speeds.length-1,ci+1)];showTimeSpeed();return}
-    if(G.paused)return;
-    if(G.arcadeActive)return;
-    keys[e.key.toLowerCase()]=true;
-    if(e.key==='Enter'){e.preventDefault();handleSpace()}
-    if(e.key.toLowerCase()==='f')handleForklift();
-    if(e.key.toLowerCase()==='h'&&G.inForklift)sfxHorn();
-    if(e.key.toLowerCase()==='l'&&G.inForklift)G.lightsOn=!G.lightsOn;
-    if(e.key.toLowerCase()==='r'&&G.cameraMode==='iso'){rotateIsoCamera(1)}
-    if(e.key.toLowerCase()==='z'&&G.cameraMode==='iso'){zoomIdx=Math.min(zoomLevels.length-1,zoomIdx+1);applyZoom()}
-    if(e.key.toLowerCase()==='x'&&G.cameraMode==='iso'){zoomIdx=Math.max(0,zoomIdx-1);applyZoom()}
-    if(e.key.toLowerCase()==='m'){setMusicVolume(!G.musicOn);showPrompt('Music: '+(G.musicOn?'ON':'OFF'));setTimeout(hidePrompt,1500)}
+    var k=e.key.toLowerCase();
+    if([' ','arrowup','arrowdown','arrowleft','arrowright','tab'].includes(k))e.preventDefault();
+    if(!G.gameStarted){if(k==='enter'&&!e.repeat){if(pendingResume)resumeSavedGame();else startGame('rush')}return}
+    if(e.repeat)return;
+    if(G.shopOpen){if(k==='p'||k==='escape')closeShop();return}
+    if(G.showSummary){if(k===' '||k==='enter')dismissSummary();return}
+    if(G.paused){e.dockHandled=true;if(k==='p'||k==='escape'||k===' ')setPaused(false);return}
+    if(G.arcadeActive){if(k==='escape')endArcade();return}
+    if(G.isFading)return;
+    if(k==='p'||k==='escape'){setPaused(true);return}
+    if(k===' '||k==='enter'){handleSpace();return}
+    keys[k]=true;
+    if(k==='f')handleForklift();
+    if(k==='h'&&G.inForklift)sfxHorn();
+    if(k==='l'&&G.inForklift)G.lightsOn=!G.lightsOn;
+    if(k==='r')rotateIsoCamera(1);
+    if(k==='z'){zoomIdx=Math.min(zoomLevels.length-1,zoomIdx+1);applyZoom()}
+    if(k==='x'){zoomIdx=Math.max(0,zoomIdx-1);applyZoom()}
+    if(k==='v')toggleFPS();
+    if(k==='tab'){G.mapVisible=!G.mapVisible;document.getElementById('minimap').style.display=G.mapVisible?'block':'none';document.getElementById('mapKey').style.display=G.mapVisible?'block':'none'}
+    if(k==='m'){setMusicVolume(!G.musicOn);saveGame();showBonus('MUSIC '+(G.musicOn?'ON':'OFF'),'#7bd5ef')}
+    if((k==='['||k===']')&&G.mode!=='rush'){var speeds=[0.25,0.5,1,2,4],ci=speeds.indexOf(G.timeScale);G.timeScale=speeds[Math.max(0,Math.min(4,ci+(k===']'?1:-1)))];showTimeSpeed()}
 });
+
 function showTimeSpeed(){
     var el=document.getElementById('timeSpeed');
     if(G.timeScale===1){el.style.display='none'}
@@ -1892,17 +1964,17 @@ function applyZoom(){
 var _lastBumpTime=0;
 // Mouse look for FPS mode
 document.addEventListener('mousemove',function(e){
-    if(G.cameraMode!=='fps'||G.paused||!G.gameStarted)return;
+    if(G.cameraMode!=='fps'||G.paused||G.shopOpen||G.showSummary||!G.gameStarted||document.pointerLockElement!==renderer.domElement)return;
     G.fpsYaw-=e.movementX*0.003;
     G.fpsPitch=Math.max(-1.2,Math.min(1.2,G.fpsPitch+e.movementY*-0.003));
 });
 renderer.domElement.addEventListener('click',function(){
-    if(G.cameraMode==='fps'&&G.gameStarted&&!G.paused){
+    if(G.cameraMode==='fps'&&G.gameStarted&&!G.paused&&!G.shopOpen&&!G.showSummary){
         renderer.domElement.requestPointerLock&&renderer.domElement.requestPointerLock();
     }
 });
 function sfxBump(){var n=performance.now();if(n-_lastBumpTime<300)return;_lastBumpTime=n;tone(80,0.12,'triangle',0.06);tone(120,0.06,'square',0.03)}
-window.addEventListener('keyup',function(e){if(!G.arcadeActive)keys[e.key.toLowerCase()]=false});
+window.addEventListener('keyup',function(e){keys[e.key.toLowerCase()]=false});
 
 
 
@@ -1912,49 +1984,43 @@ window.addEventListener('keyup',function(e){if(!G.arcadeActive)keys[e.key.toLowe
 // INTERACTIONS
 // ============================================================
 function handleSpace(){
-    if(G.isFading)return;
-    if(G.arcadeActive)return;
-    if(G.showSummary){dismissSummary();return}
-    if(G.shopOpen){closeShop();return}
-    if(G.nearBed&&(G.phase==='shift_done'||G.phase==='waking'||G.phase==='free'))return goToSleep();
-    if(G.nearTimeClock&&!G.clockedIn&&G.phase!=='sleeping')return clockIn();
+    if(!G.gameStarted||G.isFading||G.paused||G.arcadeActive||G.shopOpen||G.showSummary)return;
+    if(G.nearTimeClock&&!G.clockedIn)return clockIn();
     if(G.nearTimeClock&&G.clockedIn)return clockOut();
-    if(G.nearOffice&&!G.clockedIn&&!G.inForklift){openShop();return}
-    if(G.nearArcade&&!G.inForklift){var total=G.totalEarnings+G.todayWage;if(total>=G.arcadeCost){
-        if(G.totalEarnings>=G.arcadeCost){G.totalEarnings-=G.arcadeCost}
-        else{var rem=G.arcadeCost-G.totalEarnings;G.totalEarnings=0;G.todayWage-=rem}
-        startArcade();return}}
+    if(G.nearBed&&(G.phase==='shift_done'||G.phase==='waking'||G.phase==='free'))return goToSleep();
+    if(G.nearOffice&&!G.clockedIn&&!G.inForklift)return openShop();
+    if(G.nearArcade&&!G.inForklift){if(G.totalEarnings>=G.arcadeCost){G.totalEarnings-=G.arcadeCost;saveGame();startArcade()}else showBonus('BANK $2 AT THE TIME CLOCK FIRST','#ffcc33')}
 }
 function handleForklift(){
-    if(G.isFading)return;
+    if(!G.gameStarted||G.isFading||G.paused||G.shopOpen||G.showSummary||G.arcadeActive)return;
     if(!G.inForklift&&player.position.distanceTo(forklift.position)<5){
-        G.inForklift=true;player.visible=false;startEngine();
-        if(G.cameraMode==='fps') G.fpsYaw=forklift.rotation.y;
+        G.inForklift=true;player.visible=false;startEngine();if(G.cameraMode==='fps')G.fpsYaw=forklift.rotation.y;
     }else if(G.inForklift){
-        G.inForklift=false;
-        player.visible=G.cameraMode!=='fps';
-        player.position.set(forklift.position.x-3,0,forklift.position.z);player.rotation.y=forklift.rotation.y;
-        if(G.cameraMode==='fps') G.fpsYaw=player.rotation.y;
-        G.isReversing=false;beepOff();G.flVel=0;stopEngine();
+        if(Math.abs(G.flVel)>0.035){showBonus('BRAKE BEFORE GETTING OUT','#ffcc33');return}        var spot=null;
+        for(var i=0;i<8;i++){var angle=forklift.rotation.y+Math.PI/2+i*Math.PI/4;
+            var x=forklift.position.x+Math.sin(angle)*3.4,z=forklift.position.z+Math.cos(angle)*3.4;
+            if(!checkSolid(x,z,0.55)){spot={x:x,z:z};break}}
+        if(!spot){showBonus('NO SAFE SPACE TO GET OUT','#ffcc33');return}
+        G.inForklift=false;player.visible=G.cameraMode!=='fps';player.position.set(spot.x,0,spot.z);player.rotation.y=forklift.rotation.y;
+        if(G.cameraMode==='fps')G.fpsYaw=player.rotation.y;beepOff();G.flVel=0;stopEngine();
     }
 }
 function resetShiftStats(){
-    G.precisionBonusTotal=0;
-    G.streak=0;G.bestStreak=0;G.shiftBoxesDelivered=0;G.shiftPerfectDrops=0;
+    G.precisionBonusTotal=0;G.streak=0;G.shiftBestStreak=0;G.shiftBoxesDelivered=0;G.shiftPerfectDrops=0;
+    G.challengeBonusTotal=0;G.careBonusTotal=0;G.jobsCompleted=0;G.shiftCollisions=0;G.goals={};G.lastCollision=-10;
 }
-function clockIn(){saveGame();G.clockedIn=true;G.phase='clocked_in';G.shiftStartTime=G.gameTime;G.boxesMoved=0;G.todayWage=0;G.targetBoxes=0;G.deliveryCount=0;resetShiftStats();sfxClockIn();spawnJob();hidePrompt()}
+function clockIn(){
+    if(G.clockedIn)return;
+    G.clockedIn=true;G.phase='clocked_in';G.shiftStartTime=G.gameTime;G.boxesMoved=0;G.todayWage=0;G.targetBoxes=0;G.deliveryCount=0;G.nextJobTimer=0;
+    G.rushRemaining=300;resetShiftStats();sfxClockIn();spawnJob();hidePrompt();saveGame();
+}
 function clockOut(){
-    G.clockedIn=false;G.phase='shift_done';
-    // Clean up any remaining boxes and truck
-    if(G.carryingBox){if(G.carryingBox.parent)G.carryingBox.parent.remove(G.carryingBox);G.carryingBox=null}
-    boxes.forEach(function(b){if(b.parent)b.parent.remove(b);b.geometry.dispose();if(b.material&&b.material.dispose)b.material.dispose()});
-    boxes=[];
-    G.truck.phase='offscreen';lorry.position.set(300,0,0);G.currentJob=null;G.isReversing=false;beepOff();
-    sfxClockOut();
-    // Show shift summary instead of simple prompt
-    showShiftSummary();
-    G.totalEarnings+=G.todayWage;saveGame();
+    if(!G.clockedIn)return;
+    G.clockedIn=false;G.phase='shift_done';clearBoxes();G.flVel=0;
+    G.truck.phase='offscreen';lorry.position.set(300,0,0);G.currentJob=null;beepOff();
+    sfxClockOut();showShiftSummary();G.totalEarnings=Math.round((G.totalEarnings+G.todayWage)*100)/100;saveGame();
 }
+
 function goToSleep(){
     G.isFading=true;G.phase='sleeping';document.getElementById('fadeOverlay').classList.add('active');
     setTimeout(function(){
@@ -1963,7 +2029,7 @@ function goToSleep(){
         G.truck.phase='offscreen';G.isReversing=false;beepOff();G.flVel=0;
         G.carryingBox=null;G.nearBox=null;G.forkHeight=0;forksGroup.position.y=0;
         G.currentJob=null;lorry.position.set(300,0,0);
-        boxes.forEach(function(b){if(b.parent)b.parent.remove(b);b.geometry.dispose();if(b.material&&b.material.dispose)b.material.dispose();});boxes=[];
+        boxes.forEach(function(b){if(b.parent)b.parent.remove(b);if(b.material&&b.material.dispose)b.material.dispose();});boxes=[];
         var weathers=['clear','clear','clear','overcast','rain','fog'];
         G.weather=weathers[Math.floor(Math.random()*weathers.length)];
         if(G.inForklift){G.inForklift=false;stopEngine()}
@@ -1996,6 +2062,7 @@ function updatePauseStats(){
 function showPrompt(t){document.getElementById('promptText').textContent=t;document.getElementById('prompt').style.display='block'}
 function hidePrompt(){document.getElementById('prompt').style.display='none'}
 function updateUI(){
+    document.getElementById('saveStatus').textContent=G.saveWarning?'SAVING UNAVAILABLE · KEEP THIS TAB OPEN':'';
     document.getElementById('dayDisplay').textContent='DAY '+G.day;
     document.getElementById('clockDisplay').textContent=formatTime(G.gameTime);
     if(G.clockedIn){document.getElementById('status').textContent='ON SHIFT';
@@ -2005,13 +2072,13 @@ function updateUI(){
         if(G.bestBoxes>0&&G.bestBoxes!==G.yesterdayBoxes)boxText+=' (best: '+G.bestBoxes+')';
         document.getElementById('boxCount').textContent=boxText;
         document.getElementById('todayWage').textContent='TODAY: $'+G.todayWage.toFixed(2);
-    }else if(G.phase==='shift_done'){document.getElementById('status').textContent='OFF DUTY';document.getElementById('jobType').textContent=G.deliveryCount+' jobs completed';document.getElementById('boxCount').textContent='';document.getElementById('todayWage').textContent='TODAY: $'+G.todayWage.toFixed(2);
+    }else if(G.phase==='shift_done'){document.getElementById('status').textContent='OFF DUTY';document.getElementById('jobType').textContent=G.jobsCompleted+' jobs completed';document.getElementById('boxCount').textContent='';document.getElementById('todayWage').textContent='TODAY: $'+G.todayWage.toFixed(2);
     }else{document.getElementById('status').textContent='OFF DUTY';document.getElementById('jobType').textContent='';document.getElementById('boxCount').textContent='';document.getElementById('todayWage').textContent=''}
-    document.getElementById('totalWage').textContent='TOTAL: $'+(G.totalEarnings+(G.clockedIn?G.todayWage:0)).toFixed(2);
+    document.getElementById('totalWage').textContent='BANK: $'+G.totalEarnings.toFixed(2);
     // Streak display
     var streakEl=document.getElementById('streakDisplay');
-    if(G.clockedIn&&G.streak>=2)streakEl.textContent='STREAK: '+G.streak+(G.bestStreak>G.streak?' (BEST: '+G.bestStreak+')':'');
-    else if(G.clockedIn&&G.bestStreak>=3)streakEl.textContent='BEST STREAK: '+G.bestStreak;
+    if(G.clockedIn&&G.streak>=2)streakEl.textContent='STREAK: '+G.streak+(G.shiftBestStreak>G.streak?' (BEST: '+G.shiftBestStreak+')':'');
+    else if(G.clockedIn&&G.shiftBestStreak>=3)streakEl.textContent='BEST STREAK: '+G.shiftBestStreak;
     else streakEl.textContent='';
 }
 
@@ -2047,17 +2114,17 @@ function startArcade(){
 }
 function endArcade(){
     G.arcadeActive=false;ARC.state='idle';document.getElementById('arcadeOverlay').style.display='none';
-    if(ARC.score>G.arcadeHighScore){G.arcadeHighScore=ARC.score;saveGame();}
-    showPrompt('FORK FURY \u2014 Score: '+ARC.score+(ARC.score>=G.arcadeHighScore&&ARC.score>0?' NEW HIGH SCORE!':''));setTimeout(hidePrompt,3000);
+    var isRecord=ARC.score>G.arcadeHighScore;if(isRecord)G.arcadeHighScore=ARC.score;saveGame();clearInputs();
+    showPrompt('FORK FURY \u2014 Score: '+ARC.score+(isRecord?' NEW HIGH SCORE!':''));setTimeout(hidePrompt,3000);
 }
-var arcKeyDown=function(e){if(!G.arcadeActive)return;ARC.keys[e.key.toLowerCase()]=true;if(e.key.toLowerCase()==='p'){e.preventDefault();endArcade()}};
+var arcKeyDown=function(e){if(!G.arcadeActive||G.paused||e.dockHandled||e.repeat)return;ARC.keys[e.key.toLowerCase()]=true;if(e.key.toLowerCase()==='p'){e.preventDefault();endArcade()}};
 var arcKeyUp=function(e){if(G.arcadeActive)ARC.keys[e.key.toLowerCase()]=false};
 window.addEventListener('keydown',arcKeyDown);window.addEventListener('keyup',arcKeyUp);
 
 function updateArcade(dt){
     if(ARC.state==='gameover'){ARC.timer-=dt;if(ARC.timer<-2.5)endArcade();drawArcade();return}
     ARC.timer-=dt;
-    if(ARC.timer<=0){ARC.state='gameover';ARC.timer=0;tone(200,0.3,'sawtooth',0.06);setTimeout(function(){tone(150,0.4,'sawtooth',0.05)},200)}
+    if(ARC.timer<=0){ARC.state='gameover';ARC.timer=0;tone(200,0.3,'sawtooth',0.06);drawArcade();return}
     var spd=ARC.fspeed*dt,nx=ARC.fx,ny=ARC.fy;
     if(ARC.keys['w']||ARC.keys['arrowup']||pad.ly<-0.2){ny-=spd;ARC.fdir=0}
     if(ARC.keys['s']||ARC.keys['arrowdown']||pad.ly>0.2){ny+=spd;ARC.fdir=2}
@@ -2148,12 +2215,12 @@ function toggleGrid(){
 }
 function toggleFPS(){
   if(G.cameraMode==='iso'){
-    G.cameraMode='fps'; G.fpsYaw=player.rotation.y; G.fpsPitch=0;
+    G.cameraMode='fps'; G.fpsYaw=(G.inForklift?forklift:player).rotation.y; G.fpsPitch=0;
     if(!G.inForklift) player.visible=false;
     document.getElementById('btnFPS').style.borderColor='#9cf';
     showPrompt('First Person Mode'); setTimeout(hidePrompt,1000);
   }else{
-    G.cameraMode='iso';
+    G.cameraMode='iso';releasePointer();
     if(!G.inForklift) player.visible=true;
     document.getElementById('btnFPS').style.borderColor='#358';
     showPrompt('Isometric Mode'); setTimeout(hidePrompt,1000);
@@ -2162,10 +2229,7 @@ function toggleFPS(){
 window.toggleMapDebug=toggleMapDebug;
 window.toggleGrid=toggleGrid;
 window.toggleFPS=toggleFPS;
-window.addEventListener('keydown',function(e){
-  if(typeof editor!=='undefined'&&editor.enabled)return;
-  if(e.key.toLowerCase()==='v') toggleFPS();
-});
+
 function tileFromWorld(x,z){
   // Inverse of tileCenter(c,r): keep grid/world mapping consistent for editor raycasts.
   var c=Math.floor((x - MAP_X_MIN)/TILE);
@@ -2250,50 +2314,62 @@ var _wpPos=new THREE.Vector3();
 var _camTarget=new THREE.Vector3();
 var _navTimeClockV=new THREE.Vector3(0,0,0);
 var _navBedV=new THREE.Vector3(0,0,0);
+var accumulator=0;
+function renderGame(){renderer.setRenderTarget(renderTarget);renderer.render(scene,camera);renderer.setRenderTarget(null);renderer.render(pixelScene,pixelCam)}
 function animate(){
     requestAnimationFrame(animate);
-    _frameN++;
-    if(_frameN%18000===0)saveGame(); // autosave every ~5min at 60fps
-    var now=performance.now(),dt=Math.min((now-lastTime)/1000,0.05);lastTime=now;
-    if(!G.gameStarted){renderer.setRenderTarget(renderTarget);renderer.render(scene,camera);renderer.setRenderTarget(null);renderer.render(pixelScene,pixelCam);return}
-    updateMusic(dt);
-    if(G.paused){renderer.setRenderTarget(renderTarget);renderer.render(scene,camera);renderer.setRenderTarget(null);renderer.render(pixelScene,pixelCam);return}
-    if(G.shopOpen||G.showSummary){renderer.setRenderTarget(renderTarget);renderer.render(scene,camera);renderer.setRenderTarget(null);renderer.render(pixelScene,pixelCam);return}
-    if(G.isFading){renderer.setRenderTarget(renderTarget);renderer.render(scene,camera);renderer.setRenderTarget(null);renderer.render(pixelScene,pixelCam);return}
-    if(G.arcadeActive){pollGamepad();if(padPressed('b'))endArcade();updateArcade(dt);renderer.setRenderTarget(renderTarget);renderer.render(scene,camera);renderer.setRenderTarget(null);renderer.render(pixelScene,pixelCam);return}
-
-    // Gamepad
+    var now=performance.now(),elapsed=Math.min(Math.max(0,(now-lastTime)/1000),0.25);lastTime=now;
     pollGamepad();
-    if(padPressed('start')){G.paused=!G.paused;document.getElementById('pauseScreen').style.display=G.paused?'flex':'none';if(G.paused){updatePauseStats();keys={};if(audioCtx)audioCtx.suspend();updatePauseStats();}else{if(audioCtx)audioCtx.resume();}}
-    if(G.paused){renderer.setRenderTarget(renderTarget);renderer.render(scene,camera);renderer.setRenderTarget(null);renderer.render(pixelScene,pixelCam);return}
-    if(!G.arcadeActive){
-        if(padPressed('a'))handleSpace();
-        if(padPressed('b'))handleForklift();
-        if(padPressed('x')&&G.inForklift)sfxHorn();
-        if(padPressed('y')&&G.inForklift)G.lightsOn=!G.lightsOn;
+    if(document.hidden){accumulator=0;return}
+    if(G.gameStarted){
+        if(G.showSummary){if(padPressed('a'))dismissSummary()}
+        else if(G.shopOpen){if(padPressed('b')||padPressed('start'))closeShop()}
+        else if(G.paused){if(padPressed('start')||padPressed('a'))setPaused(false)}
+        else if(!G.isFading){
+            if(padPressed('start'))setPaused(true);
+            else if(G.arcadeActive){if(padPressed('b'))endArcade()}
+            else{
+                if(padPressed('a'))handleSpace();if(padPressed('y'))handleForklift();
+                if(padPressed('x')&&G.inForklift)sfxHorn();
+                if(padPressed('back')){G.lightsOn=!G.lightsOn}
+            }
+        }
+    }else if(padPressed('a')){if(pendingResume)resumeSavedGame();else startGame('rush')}
+    var frozen=!G.gameStarted||G.paused||G.shopOpen||G.showSummary||G.isFading||document.hidden;
+    if(frozen){accumulator=0;renderGame();return}
+    updateMusic(elapsed);
+    if(G.arcadeActive){updateArcade(elapsed);renderGame();return}
+    accumulator+=elapsed;
+    while(accumulator>=1/60){
+        simulate(1/60);accumulator-=1/60;
+        if(G.showSummary||G.paused||G.isFading){accumulator=0;break}
     }
+    renderGame();
+}
+function simulate(dt){
+    _frameN++;G.activeSeconds+=dt;var now=G.activeSeconds*1000;
+    lastAutosave+=dt;if(lastAutosave>=15){lastAutosave=0;saveGame()}
+    if(G.mode==='rush'&&G.clockedIn){G.rushRemaining=Math.max(0,G.rushRemaining-dt);if(G.rushRemaining<=0){clockOut();return}}
 
     G.gameTime+=dt*0.5*G.timeScale;if(G.gameTime>=24*60)G.gameTime=23*60+59;
     updateSky(G.gameTime);
     updateBonusPopup(dt);
-    if(G.gameTime>22*60&&G.phase!=='sleeping'&&G.clockedIn){clockOut()}
+    if(G.gameTime>22*60&&G.phase!=='sleeping'&&G.clockedIn){clockOut();return}
 
     // ---- TRUCK ----
     var tr=G.truck;
     if(tr.phase==='arriving'){lorry.position.x-=0.5;if(lorry.position.x<=tr.targetX){lorry.position.x=tr.targetX;tr.phase='parked';sfxTruck();
         if(G.currentJob&&G.currentJob.type==='unload'&&!G.currentJob.spawned){
             var cnt=G.currentJob.total;var bay=loadingBays[G.currentJob.bayIdx];
-            for(var i=0;i<cnt;i++){var dest=whZones[Math.floor(Math.random()*whZones.length)];
-                if(Math.random()>0.82){for(var wi=0;wi<whZones.length;wi++){if(whZones[wi].name==='ANNEX')dest=whZones[wi]}}
-                var mat=toonMat({color:dest.color});var box=new THREE.Mesh(boxGeo,mat);
-                box.position.set(bay.x-4+(i%3)*2.2,0.75,bay.z-4+Math.floor(i/3)*2.2);
-                box.castShadow=true;box.receiveShadow=true;box.userData={moved:false,destination:dest,justDropped:false,jobType:'unload'};
-                scene.add(box);boxes.push(box)}
+            for(var i=0;i<cnt;i++){
+                var dest=(G.mode==='rush'||G.deliveryCount===1)?whZones[7]:whZones[Math.floor(Math.random()*whZones.length)];
+                createCargo(bay.x-15+(i%3)*3.2,bay.z-4+Math.floor(i/3)*3.5,dest,'unload',G.currentJob.fragile);
+            }
             G.targetBoxes+=cnt;G.currentJob.spawned=true;
             showPrompt('Lorry delivered '+cnt+' boxes \u2014 move them to the warehouses');setTimeout(hidePrompt,3000)}
-    }}else if(tr.phase==='parked'&&allDone()&&G.clockedIn){tr.phase='waiting';tr.delay=3}
+    }}else if(tr.phase==='parked'&&allDone()&&G.clockedIn){completeJob();tr.phase='waiting';tr.delay=G.mode==='rush'?0.8:3}
     else if(tr.phase==='waiting'){tr.delay-=dt;if(tr.delay<=0)tr.phase='departing'}
-    else if(tr.phase==='departing'){lorry.position.x+=0.5;if(lorry.position.x>=300){tr.phase='offscreen';G.nextJobTimer=6+Math.random()*10}}
+    else if(tr.phase==='departing'){lorry.position.x+=0.5;if(lorry.position.x>=300){tr.phase='offscreen';G.nextJobTimer=G.mode==='rush'?0.8:3+Math.random()*4}}
     if(G.clockedIn&&allDone()&&G.deliveryCount>0&&tr.phase==='offscreen'){G.nextJobTimer-=dt;if(G.nextJobTimer<=0){addStoredStack();spawnJob()}}
 
     // ---- CRANES (subtle life + pulsing beacons) ----
@@ -2338,14 +2414,12 @@ function animate(){
         var brakeAmt=0;
         if(pad.lt>0.1)brakeAmt=pad.lt;
         else if(pad.ly>0.15)brakeAmt=pad.ly;
-        if(accelAmt>0)G.flVel+=G.flAccel*accelAmt;
-        else if(brakeAmt>0)G.flVel-=G.flAccel*brakeAmt;
-        else if(wantFwd)G.flVel+=G.flAccel;
-        else if(wantRev)G.flVel-=G.flAccel;
-        // Clamp
-        G.flVel=Math.max(G.flMaxRev,Math.min(G.flMaxFwd,G.flVel));
-        // Friction when no input
-        if(!wantFwd&&!wantRev)G.flVel*=G.flFriction;
+        var throttle=wantFwd?(accelAmt||1):wantRev?-(brakeAmt||1):0;
+        if(keys['shift']||pad.b){var brakeStep=G.flBrake*1.7;G.flVel=Math.sign(G.flVel)*Math.max(0,Math.abs(G.flVel)-brakeStep)}
+        else if(throttle){G.flVel+=(G.flVel*throttle<0?G.flBrake:G.flAccel)*throttle}
+        else G.flVel*=G.flFriction;
+        var safeLoad=G.carryingBox&&G.forkHeight>1.5?0.65:1;
+        G.flVel=Math.max(G.flMaxRev*safeLoad,Math.min(G.flMaxFwd*safeLoad,G.flVel));
         if(Math.abs(G.flVel)<0.002)G.flVel=0;
         // Steer — strength proportional to speed (keyboard + left stick)
         var steer=Math.min(Math.abs(G.flVel)*3,1)*turnSpeed;
@@ -2363,10 +2437,11 @@ function animate(){
         // Engine
         updateEngine();
         // Sync FPS yaw with forklift heading
-        if(G.cameraMode==='fps') G.fpsYaw=forklift.rotation.y;
+        if(G.cameraMode==='fps') G.fpsYaw+=steer*steerInput;
         // Reverse beep
         var isRev=G.flVel<-0.01;
         if(isRev&&!G.isReversing){G.isReversing=true;beepOn()}
+        if(isRev){beepTimer-=dt;if(beepTimer<=0){tone(1000,0.12,'square',0.05);beepTimer=0.5}}
         else if(!isRev&&G.isReversing){G.isReversing=false;beepOff()}
     }else{
         // On-foot movement (keyboard + left stick)
@@ -2394,14 +2469,15 @@ function animate(){
     var nowSolid=checkSolid(entity.position.x,entity.position.z,colR);
     if(nowSolid && !wasSolid){
         entity.position.x=oldX;entity.position.z=oldZ;
-        if(G.inForklift){G.flVel*=-0.2;sfxBump()} // bounce + thud
+        if(G.inForklift){registerBump(Math.abs(G.flVel));G.flVel*=-0.2;sfxBump()} // bounce + thud
     }
     // Box collision — push out instead of hard stop
     if(G.inForklift){for(var bi=0;bi<boxes.length;bi++){var bx=boxes[bi];
-        if(bx!==G.carryingBox&&!bx.userData.justDropped&&bx.parent===scene){
+        if(bx!==G.carryingBox&&!bx.userData.moved&&!bx.userData.justDropped&&bx.parent===scene){
             var bdx=forklift.position.x-bx.position.x,bdz=forklift.position.z-bx.position.z;
             var bdist=Math.sqrt(bdx*bdx+bdz*bdz);
-            if(bdist<2&&bdist>0.01){
+            if(bdist<1.9&&bdist>0.01){
+                registerBump(Math.abs(G.flVel));
                 // Push forklift away from box center
                 var pushStr=0.15*(2-bdist);
                 forklift.position.x+=bdx/bdist*pushStr;
@@ -2505,69 +2581,49 @@ function animate(){
 
     // Prompts
     var prompted=false;
-    if(G.nearBed&&(G.phase==='shift_done'||G.gameTime>21*60)&&G.phase!=='sleeping'){showPrompt('Press SPACE to sleep');prompted=true}
-    else if(G.nearBed&&!G.clockedIn&&G.phase==='waking'){showPrompt('Press SPACE to sleep or clock in first');prompted=true}
+    if(!G.nearTimeClock&&G.nearBed&&!G.clockedIn&&(G.phase==='shift_done'||G.gameTime>21*60)&&G.phase!=='sleeping'){showPrompt('Press SPACE to sleep');prompted=true}
+    else if(!G.nearTimeClock&&G.nearBed&&!G.clockedIn&&G.phase==='waking'){showPrompt('Press SPACE to sleep or clock in first');prompted=true}
     if(!prompted&&G.nearTimeClock&&!G.clockedIn&&G.phase!=='sleeping'){showPrompt('Press SPACE to clock in');prompted=true}
     if(!prompted&&G.nearTimeClock&&G.clockedIn&&allDone()){showPrompt('All boxes done \u2014 SPACE to clock out or wait for next job');prompted=true}
     if(!prompted&&G.nearTimeClock&&G.clockedIn&&!allDone()){showPrompt('SPACE to clock out early (unfinished boxes won\'t count)');prompted=true}
     if(!prompted&&G.nearOffice&&!G.clockedIn){showPrompt('UPGRADES \u2014 SPACE to open shop ($'+G.totalEarnings.toFixed(2)+' available)');prompted=true}
     if(!prompted&&G.nearForklift){showPrompt('Press F to enter forklift');prompted=true}
-    if(!prompted&&G.nearArcade){var canPay=(G.totalEarnings+G.todayWage)>=G.arcadeCost;showPrompt(canPay?'FORK FURY arcade \u2014 SPACE to play ($'+G.arcadeCost.toFixed(2)+') | High: '+G.arcadeHighScore:'FORK FURY \u2014 Need $'+G.arcadeCost.toFixed(2)+' to play');prompted=true}
+    if(!prompted&&G.nearArcade){var canPay=G.totalEarnings>=G.arcadeCost;showPrompt(canPay?'FORK FURY arcade \u2014 SPACE to play ($'+G.arcadeCost.toFixed(2)+') | High: '+G.arcadeHighScore:'FORK FURY \u2014 Need $'+G.arcadeCost.toFixed(2)+' to play');prompted=true}
 
-    // Box handling
-    if(!prompted&&!G.carryingBox&&G.clockedIn&&G.inForklift){
-        G.nearBox=null;var closest=999;forklift.getWorldPosition(_fPos);
-        for(var bi=0;bi<boxes.length;bi++){var b=boxes[bi];if(b.userData.moved||b.parent!==scene)continue;var d=_fPos.distanceTo(b.position);if(d<4&&d<closest){closest=d;G.nearBox=b}}
-        if(G.nearBox&&G.forkHeight>0.4&&!G.carryingBox){G.carryingBox=G.nearBox;scene.remove(G.carryingBox);forksGroup.add(G.carryingBox);G.carryingBox.position.set(0,0.4+0.75,2.8);sfxPickup()}
-        if(!prompted&&G.nearBox&&G.forkHeight<0.4){showPrompt('Near box \u2014 Raise forks [E] to lift');prompted=true}
-        else if(!prompted){var nd=999;for(var bi=0;bi<boxes.length;bi++){var b=boxes[bi];if(!b.userData.moved&&b.parent===scene){var d=_fPos.distanceTo(b.position);if(d<nd)nd=d}}if(nd<999&&nd>5){showPrompt('Drive to boxes ('+nd.toFixed(0)+'m)');prompted=true}}
-    }
-    if(!prompted&&G.carryingBox&&G.clockedIn&&G.inForklift){
-        G.carryingBox.getWorldPosition(_wpPos);var dest=G.carryingBox.userData.destination;var jt=G.carryingBox.userData.jobType;
-        var inC=false,inA=false;
-        if(jt==='unload'){for(var wi=0;wi<whZones.length;wi++){var d=_wpPos.distanceTo(whZones[wi].center);if(d<15){inA=true;if(whZones[wi].name===dest.name)inC=true}}}
-        else{var d=_wpPos.distanceTo(dest.center);if(d<8){inC=true;inA=true}for(var li=0;li<loadingBays.length;li++){_tmpV1.set(loadingBays[li].x-2,0,loadingBays[li].z);if(_wpPos.distanceTo(_tmpV1)<8)inA=true}}
-        if(G.forkHeight<0.3&&inC){var dropped=G.carryingBox;forksGroup.remove(dropped);scene.add(dropped);dropped.position.set(_wpPos.x,0.75,_wpPos.z);
-            if(!dropped.userData.moved){
-                dropped.userData.moved=true;
-                dropped.userData.movedTime=performance.now();
-                G.boxesMoved++;G.shiftBoxesDelivered++;G.todayWage+=G.wagePerBox;
-                // Precision bonus — distance to zone center
-                var dropDist=_wpPos.distanceTo(dest.center);
-                var perfect=dropDist<3;var good=dropDist<7;
-                var precBonus=perfect?2.50:good?1.00:0;
-                if(precBonus>0){G.precisionBonusTotal+=precBonus;G.todayWage+=precBonus}
-                if(perfect){G.shiftPerfectDrops++;G.streak++;if(G.streak>G.bestStreak)G.bestStreak=G.streak}
-                else{G.streak=0}
-                // Popup
-                var popLines=[];
-                if(perfect)popLines.push('PERFECT DROP +$'+precBonus.toFixed(2));
-                else if(good)popLines.push('GOOD DROP +$'+precBonus.toFixed(2));
-                if(G.streak>=3)popLines.push('STREAK x'+G.streak+'!');
-                if(popLines.length)showBonus(popLines.join('\n'),perfect?'#33aaff':'#33ff33');
-                // Sound feedback
-                if(perfect){tone(660,0.08,'sine',0.07);setTimeout(function(){tone(880,0.12,'sine',0.07)},80)}
-            }else{dropped.userData.moved=true;}dropped.userData.justDropped=true;G.carryingBox=null;G.nearBox=null;sfxDrop();
-            // Push box slightly ahead so forklift doesn't clip it
-            dropped.position.x+=Math.sin(forklift.rotation.y)*2;
-            dropped.position.z+=Math.cos(forklift.rotation.y)*2;
-            setTimeout(function(){dropped.userData.justDropped=false},1500);
-        }else if(inC){showPrompt((jt==='unload'?dest.name+' ('+dest.colorName+') \u2713':dest.name+' \u2713')+' \u2014 Lower forks [Q] to drop');prompted=true}
-        else if(inA){showPrompt(jt==='unload'?'WRONG WAREHOUSE \u2014 Need: '+dest.name+' ('+dest.colorName+')':'WRONG BAY \u2014 Need: '+dest.name);prompted=true}
-        else{showPrompt('Carrying \u2192 '+(jt==='unload'?dest.name+' ('+dest.colorName+')':dest.name));prompted=true}
+    // Cargo handling uses fork alignment and horizontal target distance.
+    if(G.clockedIn&&G.inForklift){
+        if(!G.carryingBox){
+            G.nearBox=findPickup();
+            if(G.nearBox&&G.forkHeight>0.4&&G.forkHeight<1.15&&Math.abs(G.flVel)<0.11&&(keys['e']||pad.rb)){
+                var picked=G.nearBox;G.carryingBox=picked;forksGroup.add(picked);picked.position.set(0,1.15,2.8);sfxPickup();
+            }else if(G.nearBox){showPrompt(G.forkHeight>=1.15?'Lower forks [Q], then raise [E] to collect':'Forks aligned · slow down and raise [E] to lift');prompted=true}
+        }
+        if(G.carryingBox){
+            scene.updateMatrixWorld(true);G.carryingBox.getWorldPosition(_wpPos);
+            var dest=G.carryingBox.userData.destination;
+            var dist=Math.hypot(_wpPos.x-dest.center.x,_wpPos.z-dest.center.z);
+            var radius=G.carryingBox.userData.jobType==='load'?7:12;
+            var inTarget=dist<radius&&(!G.currentJob||G.carryingBox.userData.jobType!=='load'||G.truck.phase==='parked');
+            if(G.forkHeight<0.3&&(keys['q']||pad.lb)&&Math.abs(G.flVel)<0.055){
+                if(!checkSolid(_wpPos.x,_wpPos.z,0.8)){
+                    var dropped=G.carryingBox;scene.add(dropped);dropped.position.set(_wpPos.x,0.75,_wpPos.z);dropped.rotation.y=forklift.rotation.y;
+                    dropped.userData.justDropped=true;dropped.userData.releaseTime=G.activeSeconds+1.2;G.carryingBox=null;G.nearBox=null;
+                    if(inTarget)deliverCargo(dropped,dist);else showBonus('SET DOWN · RAISE [E] TO RELOAD','#ffcc33');
+                    sfxDrop();
+                }else{showPrompt('Not enough room to set down · back up a little');prompted=true}
+            }else{
+                showPrompt(inTarget?(dist<3?'PERFECT ZONE · ':'DELIVERY ZONE · ')+'Stop, then lower [Q]':
+                    'Carrying → '+dest.name+' · '+Math.round(dist)+'m'+(G.carryingBox.userData.fragile?' · FRAGILE':''));prompted=true;
+            }
+        }
     }
     if(!prompted)hidePrompt();
-
-    // Despawn delivered boxes — sink into ground over ~3s then remove
-    if(_frameN%6===0){
-        var now2=performance.now();
-        for(var bi=boxes.length-1;bi>=0;bi--){
-            var b=boxes[bi];
-            if(!b.userData.moved||!b.userData.movedTime)continue;
-            var age=(now2-b.userData.movedTime)/1000;
-            if(age>5){b.position.y=0.75-Math.min(1.5,(age-5)*0.5);b.scale.setScalar(Math.max(0,1-(age-5)/3))}
-            if(age>8){if(b.parent)b.parent.remove(b);b.geometry.dispose();if(b.material&&b.material.dispose)b.material.dispose();boxes.splice(bi,1)}
-        }
+    for(var bi=boxes.length-1;bi>=0;bi--){
+        var b=boxes[bi];if(b.userData.justDropped&&G.activeSeconds>=b.userData.releaseTime)b.userData.justDropped=false;
+        if(!b.userData.moved)continue;
+        var age=G.activeSeconds-b.userData.movedTime;
+        if(age>2){b.position.y=0.75-Math.min(1.5,(age-2)*0.5);b.scale.setScalar(Math.max(0,1-(age-2)/3))}
+        if(age>5){scene.remove(b);b.material.dispose();boxes.splice(bi,1)}
     }
 
 
@@ -2602,64 +2658,186 @@ function animate(){
         if(Math.abs(pad.rx)>0.1)G.fpsYaw-=pad.rx*0.04;
         if(Math.abs(pad.ry)>0.1)G.fpsPitch=Math.max(-1,Math.min(1,G.fpsPitch-pad.ry*0.03));
     } else {
-        var isoYawTarget=isoYawForIndex(isoYawIndex); var d=((isoYawTarget-isoYawCurrent+Math.PI)%(Math.PI*2))-Math.PI; isoYawCurrent += d*0.18; _camTarget.set(camE.position.x+isoDistance*Math.cos(isoYawCurrent),isoHeight,camE.position.z+isoDistance*Math.sin(isoYawCurrent));camera.position.lerp(_camTarget,0.08);camera.lookAt(camE.position.x,0,camE.position.z);
+        var isoYawTarget=isoYawForIndex(isoYawIndex); var d=Math.atan2(Math.sin(isoYawTarget-isoYawCurrent),Math.cos(isoYawTarget-isoYawCurrent)); isoYawCurrent += d*0.18; _camTarget.set(camE.position.x+isoDistance*Math.cos(isoYawCurrent),isoHeight,camE.position.z+isoDistance*Math.sin(isoYawCurrent));camera.position.lerp(_camTarget,0.08);camera.lookAt(camE.position.x,0,camE.position.z);
     }
 
     updateUI();
     updateMapDebugOverlay(entity);
 
-    // Navigation arrow — always points somewhere useful
-    var navEl=_navEl,navDistEl=_navDistEl;
-    var navTarget=null,navLabel='';
-    if(G.arcadeActive){navEl.style.display='none';navDistEl.style.display='none'}
-    else{
-        if(!G.clockedIn&&G.phase==='waking'){_tmpV2.set(timeClockPos.x,0,timeClockPos.z);navTarget=_tmpV2;navLabel='CLOCK IN'}
-        else if(!G.inForklift&&!G.nearForklift){navTarget=forklift.position;navLabel='FORKLIFT'}
-        else if(G.clockedIn&&G.carryingBox){navTarget=G.carryingBox.userData.destination.center;navLabel=G.carryingBox.userData.destination.name}
-        else if(G.clockedIn&&!allDone()){
-            var cMin=9999;for(var bi=0;bi<boxes.length;bi++){var b=boxes[bi];if(!b.userData.moved&&b.parent===scene){var d=entity.position.distanceTo(b.position);if(d<cMin){cMin=d;navTarget=b.position;navLabel='PICKUP'}}}
-        }
-        else if(G.clockedIn&&allDone()&&boxes.length>0){_tmpV2.set(timeClockPos.x,0,timeClockPos.z);navTarget=_tmpV2;navLabel='CLOCK OUT'}
-        else if(G.clockedIn&&G.truck.phase==='arriving'){
-            var bay=loadingBays[G.truck.bayIdx||0];_tmpV2.set(bay.x,0,bay.z);navTarget=_tmpV2;navLabel='TRUCK'}
-        else if(!G.clockedIn&&G.phase!=='waking'){_tmpV2.set(bedPos.x,0,bedPos.z);navTarget=_tmpV2;navLabel='BED'}
-
-        if(navTarget){
-            var ndx=navTarget.x-entity.position.x,ndz=navTarget.z-entity.position.z;
-            var worldAngle=Math.atan2(ndx,ndz);
-            var camAngle=G.cameraMode==='fps'?G.fpsYaw:-(isoYawCurrent+Math.PI/2);
-            var relAngle=worldAngle-camAngle;
-            navEl.style.display='block';navDistEl.style.display='block';
-            navEl.style.transform='rotate('+(-relAngle)+'rad)';
-            var dist=Math.floor(Math.sqrt(ndx*ndx+ndz*ndz));
-            navDistEl.textContent=navLabel+' '+dist+'m';
-        }else{navEl.style.display='none';navDistEl.style.display='none'}
-    }
-    renderer.setRenderTarget(renderTarget);renderer.render(scene,camera);renderer.setRenderTarget(null);renderer.render(pixelScene,pixelCam);
+    updateGuidance(entity);
 }
 
-// Title screen
-document.getElementById('titleScreen').addEventListener('click',function(){
-    if(document.documentElement.requestFullscreen)document.documentElement.requestFullscreen().catch(function(){});
-    G.gameStarted=true;
-    document.getElementById('titleScreen').style.display='none';
-    document.getElementById('ui').style.display='block';
-    document.getElementById('debugBtns').style.display='flex';
-    aud(); // init audio context on user gesture
-    startMusic();
-});
-// Also start on any key
-window.addEventListener('keydown',function titleKey(e){
-    if(!G.gameStarted){
-        G.gameStarted=true;
-        document.getElementById('titleScreen').style.display='none';
-        document.getElementById('ui').style.display='block';
-        document.getElementById('debugBtns').style.display='flex';
-        aud();
-        startMusic();
-        window.removeEventListener('keydown',titleKey);
+// ============================================================
+// v1.40: dispatch, delivery feedback, short shifts and resumable work
+// ============================================================
+var goalDefs=[
+    {key:'perfect',label:'3 perfect drops',target:3,reward:12,stat:'shiftPerfectDrops'},
+    {key:'jobs',label:'Finish 2 jobs',target:2,reward:15,stat:'jobsCompleted'},
+    {key:'boxes',label:'Deliver 8 crates',target:8,reward:20,stat:'shiftBoxesDelivered'}
+];
+function checkGoals(){
+    var earned=[];goalDefs.forEach(function(g){if(!G.goals[g.key]&&G[g.stat]>=g.target){
+        G.goals[g.key]=true;G.challengeBonusTotal+=g.reward;G.todayWage+=g.reward;earned.push(g.label.toUpperCase()+' +$'+g.reward);
+    }});return earned;
+}
+function completeJob(){
+    var j=G.currentJob;if(!j||j.completed||!j.spawned||!allDone())return;
+    j.completed=true;G.jobsCompleted++;
+    var rewards=checkGoals();showBonus(['JOB COMPLETE · NICE WORK'].concat(rewards).join('\n'),'#a7e6bd');
+    saveGame();
+}
+function registerBump(speed){
+    if(!G.clockedIn||speed<0.075||G.activeSeconds-G.lastCollision<1)return;
+    G.lastCollision=G.activeSeconds;G.shiftCollisions++;G.streak=0;
+    if(G.carryingBox&&G.carryingBox.userData.fragile&&!G.carryingBox.userData.damaged){
+        G.carryingBox.userData.damaged=true;showBonus('FRAGILE CARGO BUMPED\nCare bonus lost · base pay is safe','#ffb274');
     }
-});
+}
+function findPickup(){
+    var result=null,best=Infinity,c=Math.cos(forklift.rotation.y),s=Math.sin(forklift.rotation.y);
+    boxes.forEach(function(b){
+        if(b.userData.moved||b.userData.justDropped||b.parent!==scene)return;
+        var dx=b.position.x-forklift.position.x,dz=b.position.z-forklift.position.z;
+        var side=dx*c-dz*s,front=dx*s+dz*c;
+        if(Math.abs(side)>1.1||front<1.9||front>4.2)return;
+        // Check the approach corridor; forks cannot collect through a wall or truck.
+        for(var t=0.3;t<=1;t+=0.2)if(checkSolid(forklift.position.x+dx*t,forklift.position.z+dz*t,0.3))return;
+        var score=Math.abs(front-2.8)+Math.abs(side);if(score<best){best=score;result=b}
+    });return result;
+}
+function deliverCargo(box,distance){
+    if(box.userData.moved)return;
+    box.userData.moved=true;box.userData.movedTime=G.activeSeconds;
+    G.boxesMoved++;G.shiftBoxesDelivered++;G.todayWage+=G.wagePerBox;
+    if(G.currentJob)G.currentJob.delivered=(G.currentJob.delivered||0)+1;
+    var perfect=distance<3,good=distance<7,prec=perfect?2.5:good?1:0;
+    G.precisionBonusTotal+=prec;G.todayWage+=prec;
+    if(perfect){G.shiftPerfectDrops++;G.streak++;G.shiftBestStreak=Math.max(G.shiftBestStreak,G.streak);G.bestStreak=Math.max(G.bestStreak,G.streak)}else G.streak=0;
+    var care=box.userData.fragile&&!box.userData.damaged?3:0;G.careBonusTotal+=care;G.todayWage+=care;
+    var lines=[(perfect?'PERFECT DROP':good?'GOOD DROP':'DELIVERED')+' +$'+(G.wagePerBox+prec+care).toFixed(2)];
+    if(care)lines.push('FRAGILE CARGO · INTACT +$3');if(G.streak>=2)lines.push('PERFECT STREAK ×'+G.streak);
+    lines=lines.concat(checkGoals());showBonus(lines.join('\n'),perfect?'#7bd5ef':'#a7e6bd');
+    tone(perfect?880:660,0.14,'sine',0.07);
+    if(allDone()){
+        var j=G.currentJob;if(j&&!j.completed){j.completed=true;G.jobsCompleted++;lines.push('JOB COMPLETE');lines=lines.concat(checkGoals());showBonus(lines.join('\n'),'#a7e6bd')}
+    }
+    saveGame();
+}
+function nextTarget(entity){
+    if(!G.clockedIn)return G.phase==='waking'?{p:timeClockPos,label:'CLOCK IN',hint:'SPACE at the green time clock starts your shift.'}:{p:bedPos,label:'BED / NEXT DAY',hint:'Visit the office for upgrades, or sleep to start a new day.'};
+    if(!G.inForklift)return {p:forklift.position,label:'FORKLIFT',hint:'Walk to your forklift and press F to get in.'};
+    if(G.carryingBox){var d=G.carryingBox.userData.destination;return {p:d.center,label:d.name,hint:'Aim for the inner ring. Stop and lower Q to deliver.',delivery:true}}
+    var nearest=null,dist=Infinity;boxes.forEach(function(b){if(!b.userData.moved&&b.parent===scene){var n=Math.hypot(b.position.x-entity.position.x,b.position.z-entity.position.z);if(n<dist){dist=n;nearest=b}}});
+    if(nearest)return {p:nearest.position,label:'PICKUP',hint:'Line up the front forks. Approach slowly, then raise E.',box:nearest};
+    var bay=loadingBays[G.truck.bayIdx||0];return {p:{x:bay.x-15,z:bay.z-4},label:G.truck.phase==='arriving'?'LORRY ARRIVING':'NEXT JOB',hint:'Dispatch is bringing the next load. P opens the pause menu.'};
+}
+var targetRing=new THREE.Mesh(new THREE.RingGeometry(2.65,3,48),new THREE.MeshBasicMaterial({color:0x7bd5ef,transparent:true,opacity:0.85,side:THREE.DoubleSide,depthWrite:false}));
+targetRing.rotation.x=-Math.PI/2;targetRing.position.y=0.38;targetRing.renderOrder=8;scene.add(targetRing);
+var targetOuter=new THREE.Mesh(new THREE.RingGeometry(6.8,7,48),new THREE.MeshBasicMaterial({color:0xffcc33,transparent:true,opacity:0.45,side:THREE.DoubleSide,depthWrite:false}));
+targetOuter.rotation.x=-Math.PI/2;targetOuter.position.y=0.37;targetOuter.renderOrder=7;scene.add(targetOuter);
+var pickupRing=new THREE.Mesh(new THREE.RingGeometry(1.1,1.4,24),new THREE.MeshBasicMaterial({color:0xffcc33,transparent:true,opacity:0.8,side:THREE.DoubleSide,depthWrite:false}));
+pickupRing.rotation.x=-Math.PI/2;pickupRing.renderOrder=8;scene.add(pickupRing);
+var mini=document.getElementById('minimap'),miniCtx=mini.getContext('2d'),mapBase=document.createElement('canvas');mapBase.width=436;mapBase.height=340;
+var baseCtx=mapBase.getContext('2d');
+function mx(x){return (x-MAP_X_MIN)/(MAP_W*TILE)*436}
+function mz(z){return (MAP_Z_MAX-z)/(MAP_H*TILE)*340}
+(function drawBaseMap(){
+    var colors={'.':'#283930','W':'#203d50','Q':'#6c7271','=':'#3e4f5b','T':'#3e4f5b','H':'#465560','B':'#485860','Y':'#4c5960','A':'#4c5960','O':'#65726f','F':'#627076','-':'#43545f','P':'#5a6464','c':'#566467'};
+    for(var r=0;r<MAP_H;r++)for(var c=0;c<MAP_W;c++){baseCtx.fillStyle=colors[mapRows[r][c]]||'#29353d';baseCtx.fillRect(c*436/MAP_W,r*340/MAP_H,436/MAP_W+0.5,340/MAP_H+0.5)}
+    baseCtx.fillStyle='#17212a';colliders.forEach(function(c){baseCtx.fillRect(mx(c.x),mz(c.z2),Math.max(1,mx(c.x2)-mx(c.x)),Math.max(1,mz(c.z)-mz(c.z2)))});
+})();
+function drawMinimap(entity,target){
+    if(!G.mapVisible)return;var c=miniCtx;c.drawImage(mapBase,0,0);c.font='bold 13px monospace';c.textAlign='center';
+    whZones.forEach(function(w){c.fillStyle='#'+new THREE.Color(w.color).getHexString();c.fillRect(mx(w.center.x)-5,mz(w.center.z)-4,10,8);c.fillStyle='#fff';c.fillText(w.name.replace('WH-',''),mx(w.center.x),mz(w.center.z)+20)});
+    c.fillStyle='#d1eced';c.fillText('OFFICE',mx(officeTc.x),mz(officeTc.z)-9);c.fillText('BAYS',mx(250),mz(-110)-14);
+    boxes.forEach(function(b){if(b.userData.moved||b===G.carryingBox)return;c.fillStyle='#ffdd55';c.fillRect(mx(b.position.x)-3,mz(b.position.z)-3,6,6)});
+    if(target){c.strokeStyle='#8fe9ff';c.lineWidth=2;c.beginPath();c.arc(mx(target.p.x),mz(target.p.z),8+Math.sin(G.activeSeconds*4),0,Math.PI*2);c.stroke()}
+    c.save();c.translate(mx(entity.position.x),mz(entity.position.z));c.rotate(Math.PI-entity.rotation.y);c.fillStyle='#fff';c.strokeStyle='#111';c.lineWidth=2;c.beginPath();c.moveTo(0,-9);c.lineTo(6,6);c.lineTo(0,3);c.lineTo(-6,6);c.closePath();c.fill();c.stroke();c.restore();
+}
+function updateGuidance(entity){
+    var target=nextTarget(entity),j=G.currentJob;
+    if(_frameN%6===0){
+        document.getElementById('missionTitle').textContent=G.clockedIn?'DISPATCH · JOB '+G.deliveryCount:'WELCOME TO THE DOCK';
+        document.getElementById('missionDetail').textContent=target.label+' · '+target.hint+(j?' '+(j.delivered||0)+'/'+j.total+' delivered'+(j.fragile?' · FRAGILE +$3 INTACT':''):'');
+        document.getElementById('rushTimer').textContent=G.mode==='rush'&&G.clockedIn?Math.floor(Math.ceil(G.rushRemaining)/60)+':'+('0'+(Math.ceil(G.rushRemaining)%60)).slice(-2):'';
+        document.getElementById('rushTimer').style.color=G.rushRemaining<30?'#ffad8b':'#ffcc33';
+        document.getElementById('rushTrack').textContent=G.mode==='rush'?'BRONZE 3 · SILVER 6 · GOLD 10 · BEST '+G.rushBest:'';
+        document.getElementById('goalList').innerHTML=G.clockedIn?goalDefs.map(function(g){return (G.goals[g.key]?'✓ ':'· ')+g.label+' '+Math.min(G[g.stat],g.target)+'/'+g.target+' · $'+g.reward}).join('<br>'):G.saveWarning?'Saving is unavailable in this browser. Keep this tab open to retain this session.':'Your shift saves automatically. P opens the controls.';
+        document.getElementById('driveHUD').style.display=G.inForklift?'block':'none';
+        document.getElementById('speedReadout').textContent=Math.round(Math.abs(G.flVel)*60*3.6)+' KM/H'+(G.flVel<-.01?' · REVERSE':'');
+        document.getElementById('cargoReadout').textContent=G.carryingBox?(G.carryingBox.userData.fragile?(G.carryingBox.userData.damaged?'FRAGILE · BUMPED':'FRAGILE · INTACT'):'CARGO ON BOARD'):'FORKS EMPTY';
+        document.getElementById('forkReadout').textContent='FORKS '+G.forkHeight.toFixed(1)+'m'+(G.carryingBox&&G.forkHeight>1.5?' · HIGH LOAD: SLOWER':'');
+        document.getElementById('forkFill').style.width=(G.forkHeight/G.maxForkHeight*100)+'%';drawMinimap(entity,target);
+    }
+    targetRing.visible=targetOuter.visible=!!target.delivery;pickupRing.visible=!!target.box;
+    if(target.delivery){targetRing.position.set(target.p.x,.38,target.p.z);targetOuter.position.set(target.p.x,.37,target.p.z);targetOuter.scale.setScalar(G.carryingBox.userData.jobType==='load'?1:12/7);targetRing.material.opacity=.6+Math.sin(G.activeSeconds*4)*.2}
+    if(target.box)pickupRing.position.set(target.p.x,.35,target.p.z);
+    warehouseRoofs.forEach(function(w){var reveal=Math.hypot(entity.position.x-w.x,entity.position.z-w.z)<22||target.delivery&&target.label===w.name;
+        w.mesh.material.transparent=!!reveal;w.mesh.material.opacity=reveal?.13:1;w.mesh.material.depthWrite=!reveal;});
+    var dx=target.p.x-entity.position.x,dz=target.p.z-entity.position.z;
+    var angle=G.cameraMode==='fps'?Math.atan2(dx,dz)-G.fpsYaw:Math.atan2(dx*Math.sin(isoYawCurrent)-dz*Math.cos(isoYawCurrent),-(dx*Math.cos(isoYawCurrent)+dz*Math.sin(isoYawCurrent)));
+    _navEl.style.display=_navDistEl.style.display='block';_navEl.style.transform='rotate('+angle+'rad)';_navDistEl.textContent=target.label+' '+Math.round(Math.hypot(dx,dz))+'m';
+}
+function activateGame(){
+    G.gameStarted=true;G.paused=false;G.showSummary=false;G.shopOpen=false;clearInputs();
+    document.getElementById('titleScreen').style.display='none';document.getElementById('pauseScreen').style.display='none';document.getElementById('summaryScreen').style.display='none';
+    ['ui','missionPanel','helpStrip'].forEach(function(id){document.getElementById(id).style.display='block'});
+    document.getElementById('debugBtns').style.display='flex';
+    lastTime=performance.now();accumulator=0;aud().resume();startMusic();
+}
+function startGame(mode){
+    if(G.phase==='shift_done')G.day++;
+    pendingResume=null;clearBoxes();G.mode=mode;G.phase='waking';G.clockedIn=false;G.gameTime=7*60;G.todayWage=0;G.deliveryCount=0;G.targetBoxes=0;
+    G.truck={phase:'offscreen',delay:0,targetX:140,targetZ:0,bayIdx:0};lorry.position.set(300,0,0);
+    G.currentJob=null;G.flVel=0;G.forkHeight=0;forksGroup.position.y=0;G.timeScale=1;G.weather='clear';G.inForklift=false;stopEngine();resetShiftStats();
+    player.position.set(83,0,-73);player.rotation.y=Math.PI;forklift.position.set(89,.008,-69);forklift.rotation.y=Math.PI;player.visible=G.cameraMode!=='fps';
+    activateGame();
+    if(mode==='rush'){
+        forklift.position.set(235,.008,-146);forklift.rotation.y=Math.PI;G.inForklift=true;player.visible=false;G.fpsYaw=Math.PI;startEngine();clockIn();
+        showBonus('FIVE MINUTES. MAKE THEM COUNT.\nE to lift · Q to deliver · SHIFT to brake','#ffcc33');
+    }else showBonus('WELCOME TO THE DOCK\nSPACE at the clock to start your shift','#ffcc33');
+    camera.position.set(forklift.position.x+isoDistance,isoHeight,forklift.position.z+isoDistance);updateSky(G.gameTime);updateUI();updateGuidance(G.inForklift?forklift:player);
+}
+function resumeSavedGame(){
+    if(!pendingResume)return;var a=pendingResume;pendingResume=null;clearBoxes();
+    snapshotKeys.forEach(function(k){G[k]=a.state[k]});
+    player.position.set(a.player[0],0,a.player[1]);player.rotation.y=a.player[2];
+    forklift.position.set(a.forklift[0],.008,a.forklift[1]);forklift.rotation.y=a.forklift[2];
+    lorry.position.set(a.truckX,0,G.truck.targetZ);G.flVel=0;G.lastCollision=G.activeSeconds;forksGroup.position.y=G.forkHeight;
+    a.boxes.forEach(function(b){var dest={name:b.dest.name,colorName:b.dest.colorName,color:b.dest.color,center:new THREE.Vector3(b.dest.x,0,b.dest.z)};
+        var box=createCargo(b.x,b.z,dest,b.jobType,b.fragile);box.userData.damaged=b.damaged;box.userData.homeX=b.homeX;box.userData.homeZ=b.homeZ;
+        if(b.carried){G.carryingBox=box;forksGroup.add(box);box.position.set(0,1.15,2.8)}
+    });
+    player.visible=!G.inForklift&&G.cameraMode!=='fps';activateGame();if(G.inForklift)startEngine();updateSky(G.gameTime);
+    var e=G.inForklift?forklift:player;camera.position.set(e.position.x+isoDistance,isoHeight,e.position.z+isoDistance);camera.lookAt(e.position);updateUI();updateGuidance(e);
+    showBonus('SHIFT RESUMED · CARGO AND PAY RESTORED','#a7e6bd');
+}
+function recoverForklift(){
+    var spot=null;
+    for(var r=8;r<=32&&!spot;r+=4)for(var i=0;i<16;i++){var a=i*Math.PI/8,x=forklift.position.x+Math.sin(a)*r,z=forklift.position.z+Math.cos(a)*r;
+        if(x>MAP_X_MIN+8&&x<MAP_X_MIN+MAP_W*TILE-8&&z>MAP_Z_MAX-MAP_H*TILE+8&&z<MAP_Z_MAX-40&&!checkSolid(x,z,2.5)&&!boxes.some(function(b){return !b.userData.moved&&b!==G.carryingBox&&Math.hypot(x-b.position.x,z-b.position.z)<6})){spot={x:x,z:z};break}}
+    if(!spot)return;
+    if(G.carryingBox){var b=G.carryingBox;scene.add(b);b.position.set(b.userData.homeX,.75,b.userData.homeZ);b.userData.justDropped=false;G.carryingBox=null}
+    forklift.position.set(spot.x,.008,spot.z);G.flVel=0;G.forkHeight=0;forksGroup.position.y=0;G.streak=0;setPaused(false);showBonus('FORKLIFT RECOVERED\nAny carried crate is back at its pickup point','#ffcc33');saveGame();
+}
+function backToMenu(){
+    G.showSummary=false;G.gameStarted=false;G.paused=false;clearInputs();beepOff();releasePointer();stopEngine();
+    document.getElementById('summaryScreen').style.display='none';document.getElementById('titleScreen').style.display='flex';
+    ['ui','missionPanel','driveHUD','helpStrip','navArrow','navDist','prompt','debugBtns'].forEach(function(id){document.getElementById(id).style.display='none'});
+    document.getElementById('startDock').style.display='block';document.getElementById('startRush').style.display='block';document.getElementById('resumeSaved').style.display='none';
+    document.getElementById('saveNote').textContent='Rush best: '+G.rushBest+' boxes · Bank: $'+G.totalEarnings.toFixed(2);if(audioCtx)audioCtx.suspend();
+}
+document.getElementById('startDock').addEventListener('click',function(){startGame('dock')});
+document.getElementById('startRush').addEventListener('click',function(){startGame('rush')});
+document.getElementById('resumeSaved').addEventListener('click',resumeSavedGame);
+document.getElementById('resumeButton').addEventListener('click',function(){setPaused(false)});
+document.getElementById('endShiftButton').addEventListener('click',function(){setPaused(false);if(G.clockedIn)clockOut();else backToMenu()});
+document.getElementById('recoverButton').addEventListener('click',recoverForklift);
+document.getElementById('summaryContinue').addEventListener('click',dismissSummary);
+document.getElementById('summaryMenu').addEventListener('click',backToMenu);
+document.getElementById('fullscreenButton').addEventListener('click',function(){if(document.fullscreenElement){if(document.exitFullscreen)document.exitFullscreen().catch(function(){})}else if(document.documentElement.requestFullscreen)document.documentElement.requestFullscreen().catch(function(){})});
+worldReady=true;
+if(pendingResume){document.getElementById('resumeSaved').style.display='block';document.getElementById('startDock').style.display='none';document.getElementById('startRush').style.display='none';document.getElementById('saveNote').textContent='Saved '+(pendingResume.state.mode==='rush'?'rush':'dock')+' shift found. Resume, or end it from the pause menu to choose another mode.'}
 
 animate();
 })();
