@@ -997,7 +997,8 @@ function charSpec(ch){
         case 'Y': return {mat:matTar,y:0.0};
         case 'A': return {mat:matTar,y:0.0};
         case 'O': return {mat:matConc,y:0.0};
-        case 'F': return {mat:matConc,y:0.0};        case '-': return {mat:matTar,y:0.0};
+        case 'F': return {mat:matConc,y:0.0};
+        case '-': return {mat:matTar,y:0.0};
         case 'P': return {mat:matPave,y:0.0};
         case 'c': return {mat:matConc,y:0.0};
         default: return null;
@@ -1996,7 +1997,8 @@ function handleForklift(){
     if(!G.inForklift&&player.position.distanceTo(forklift.position)<5){
         G.inForklift=true;player.visible=false;startEngine();if(G.cameraMode==='fps')G.fpsYaw=forklift.rotation.y;
     }else if(G.inForklift){
-        if(Math.abs(G.flVel)>0.035){showBonus('BRAKE BEFORE GETTING OUT','#ffcc33');return}        var spot=null;
+        if(Math.abs(G.flVel)>0.035){showBonus('BRAKE BEFORE GETTING OUT','#ffcc33');return}
+        var spot=null;
         for(var i=0;i<8;i++){var angle=forklift.rotation.y+Math.PI/2+i*Math.PI/4;
             var x=forklift.position.x+Math.sin(angle)*3.4,z=forklift.position.z+Math.cos(angle)*3.4;
             if(!checkSolid(x,z,0.55)){spot={x:x,z:z};break}}
