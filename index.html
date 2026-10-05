@@ -1886,7 +1886,7 @@ function rotateIsoCamera(dir){
     if(G.cameraMode!=='iso') return;
     isoYawIndex=(isoYawIndex+dir)%4; if(isoYawIndex<0) isoYawIndex+=4;
     var labels=['SW','NW','NE','SE'];
-    showPrompt('View: '+labels[isoYawIndex]); setTimeout(hidePrompt,800);
+    flashPrompt('View: '+labels[isoYawIndex],800);
 }
 var zoomLevels=[{d:35,h:28,label:'CLOSE'},{d:50,h:40,label:'MEDIUM'},{d:65,h:50,label:'DEFAULT'},{d:90,h:65,label:'WIDE'},{d:130,h:90,label:'OVERVIEW'}];
 var zoomIdx=0;
@@ -1965,7 +1965,7 @@ function showTimeSpeed(){
 }
 function applyZoom(){
     var z=zoomLevels[zoomIdx];isoDistance=z.d;isoHeight=z.h;
-    showPrompt('Zoom: '+z.label);setTimeout(hidePrompt,1000);
+    flashPrompt('Zoom: '+z.label,1000);
 }
 var _lastBumpTime=0;
 // Mouse look for FPS mode
@@ -1991,7 +1991,7 @@ window.addEventListener('keyup',function(e){keys[e.key.toLowerCase()]=false});
 // ============================================================
 function handleSpace(){
     if(!G.gameStarted||G.isFading||G.paused||G.arcadeActive||G.shopOpen||G.showSummary)return;
-    if(G.nearTimeClock&&!G.clockedIn)return clockIn();
+    if(G.nearTimeClock&&!G.clockedIn&&G.gameTime<22*60)return clockIn(); // shifts end at 22:00
     if(G.nearTimeClock&&G.clockedIn)return clockOut();
     if(G.nearBed&&(G.phase==='shift_done'||G.phase==='waking'||G.phase==='free'))return goToSleep();
     if(G.nearOffice&&!G.clockedIn&&!G.inForklift)return openShop();
@@ -2068,6 +2068,10 @@ function updatePauseStats(){
 }
 function showPrompt(t){document.getElementById('promptText').textContent=t;document.getElementById('prompt').style.display='block'}
 function hidePrompt(){document.getElementById('prompt').style.display='none'}
+// Brief notices (camera, zoom, lorry arrival) hold the prompt bar for a while instead of
+// being cleared by the per-frame context prompts on the next tick.
+var promptFlash='',promptFlashUntil=0;
+function flashPrompt(t,ms){promptFlash=t;promptFlashUntil=performance.now()+ms;showPrompt(t)}
 function updateUI(){
     document.getElementById('saveStatus').textContent=G.saveWarning?'SAVING UNAVAILABLE · KEEP THIS TAB OPEN':'';
     document.getElementById('dayDisplay').textContent='DAY '+G.day;
@@ -2122,7 +2126,7 @@ function startArcade(){
 function endArcade(){
     G.arcadeActive=false;ARC.state='idle';document.getElementById('arcadeOverlay').style.display='none';
     var isRecord=ARC.score>G.arcadeHighScore;if(isRecord)G.arcadeHighScore=ARC.score;saveGame();clearInputs();
-    showPrompt('FORK FURY \u2014 Score: '+ARC.score+(isRecord?' NEW HIGH SCORE!':''));setTimeout(hidePrompt,3000);
+    flashPrompt('FORK FURY \u2014 Score: '+ARC.score+(isRecord?' NEW HIGH SCORE!':''),3000);
 }
 var arcKeyDown=function(e){if(!G.arcadeActive||G.paused||e.dockHandled||e.repeat)return;ARC.keys[e.key.toLowerCase()]=true;if(e.key.toLowerCase()==='p'){e.preventDefault();endArcade()}};
 var arcKeyUp=function(e){if(G.arcadeActive)ARC.keys[e.key.toLowerCase()]=false};
@@ -2214,23 +2218,23 @@ G.showMapDebug=false;
 G.showGrid=false;
 function toggleMapDebug(){
   G.showMapDebug=!G.showMapDebug; mapDebug.el.style.display=G.showMapDebug?'block':'none';
-  showPrompt('Map debug: '+(G.showMapDebug?'ON':'OFF')); setTimeout(hidePrompt,1000);
+  flashPrompt('Map debug: '+(G.showMapDebug?'ON':'OFF'),1000);
 }
 function toggleGrid(){
   G.showGrid=!G.showGrid; if(gridOverlay)gridOverlay.visible=!!G.showGrid;
-  showPrompt('Grid overlay: '+(G.showGrid?'ON':'OFF')); setTimeout(hidePrompt,1000);
+  flashPrompt('Grid overlay: '+(G.showGrid?'ON':'OFF'),1000);
 }
 function toggleFPS(){
   if(G.cameraMode==='iso'){
     G.cameraMode='fps'; G.fpsYaw=(G.inForklift?forklift:player).rotation.y; G.fpsPitch=0;
     if(!G.inForklift) player.visible=false;
     document.getElementById('btnFPS').style.borderColor='#9cf';
-    showPrompt('First Person Mode'); setTimeout(hidePrompt,1000);
+    flashPrompt('First Person Mode',1000);
   }else{
     G.cameraMode='iso';releasePointer();
     if(!G.inForklift) player.visible=true;
     document.getElementById('btnFPS').style.borderColor='#358';
-    showPrompt('Isometric Mode'); setTimeout(hidePrompt,1000);
+    flashPrompt('Isometric Mode',1000);
   }
 }
 window.toggleMapDebug=toggleMapDebug;
@@ -2373,7 +2377,7 @@ function simulate(dt){
                 createCargo(bay.x-15+(i%3)*3.2,bay.z-4+Math.floor(i/3)*3.5,dest,'unload',G.currentJob.fragile);
             }
             G.targetBoxes+=cnt;G.currentJob.spawned=true;
-            showPrompt('Lorry delivered '+cnt+' boxes \u2014 move them to the warehouses');setTimeout(hidePrompt,3000)}
+            flashPrompt('Lorry delivered '+cnt+' boxes \u2014 move them to the warehouses',3000)}
     }}else if(tr.phase==='parked'&&allDone()&&G.clockedIn){completeJob();tr.phase='waiting';tr.delay=G.mode==='rush'?0.8:3}
     else if(tr.phase==='waiting'){tr.delay-=dt;if(tr.delay<=0)tr.phase='departing'}
     else if(tr.phase==='departing'){lorry.position.x+=0.5;if(lorry.position.x>=300){tr.phase='offscreen';G.nextJobTimer=G.mode==='rush'?0.8:3+Math.random()*4}}
@@ -2589,9 +2593,9 @@ function simulate(dt){
 
     // Prompts
     var prompted=false;
-    if(!G.nearTimeClock&&G.nearBed&&!G.clockedIn&&(G.phase==='shift_done'||G.gameTime>21*60)&&G.phase!=='sleeping'){showPrompt('Press SPACE to sleep');prompted=true}
+    if((!G.nearTimeClock||G.gameTime>=22*60)&&G.nearBed&&!G.clockedIn&&(G.phase==='shift_done'||G.gameTime>21*60)&&G.phase!=='sleeping'){showPrompt('Press SPACE to sleep');prompted=true}
     else if(!G.nearTimeClock&&G.nearBed&&!G.clockedIn&&G.phase==='waking'){showPrompt('Press SPACE to sleep or clock in first');prompted=true}
-    if(!prompted&&G.nearTimeClock&&!G.clockedIn&&G.phase!=='sleeping'){showPrompt('Press SPACE to clock in');prompted=true}
+    if(!prompted&&G.nearTimeClock&&!G.clockedIn&&G.phase!=='sleeping'){showPrompt(G.gameTime<22*60?'Press SPACE to clock in':'Too late to clock in · sleep to start a new day');prompted=true}
     if(!prompted&&G.nearTimeClock&&G.clockedIn&&allDone()){showPrompt('All boxes done \u2014 SPACE to clock out or wait for next job');prompted=true}
     if(!prompted&&G.nearTimeClock&&G.clockedIn&&!allDone()){showPrompt('SPACE to clock out early (unfinished boxes won\'t count)');prompted=true}
     if(!prompted&&G.nearOffice&&!G.clockedIn){showPrompt('UPGRADES \u2014 SPACE to open shop ($'+G.totalEarnings.toFixed(2)+' available)');prompted=true}
@@ -2625,7 +2629,7 @@ function simulate(dt){
             }
         }
     }
-    if(!prompted)hidePrompt();
+    if(performance.now()<promptFlashUntil)showPrompt(promptFlash);else if(!prompted)hidePrompt();
     for(var bi=boxes.length-1;bi>=0;bi--){
         var b=boxes[bi];if(b.userData.justDropped&&G.activeSeconds>=b.userData.releaseTime)b.userData.justDropped=false;
         if(!b.userData.moved)continue;
@@ -2732,7 +2736,7 @@ function deliverCargo(box,distance){
     saveGame();
 }
 function nextTarget(entity){
-    if(!G.clockedIn)return G.phase==='waking'?{p:timeClockPos,label:'CLOCK IN',hint:'SPACE at the green time clock starts your shift.'}:{p:bedPos,label:'BED / NEXT DAY',hint:'Visit the office for upgrades, or sleep to start a new day.'};
+    if(!G.clockedIn)return G.phase==='waking'&&G.gameTime<22*60?{p:timeClockPos,label:'CLOCK IN',hint:'SPACE at the green time clock starts your shift.'}:{p:bedPos,label:'BED / NEXT DAY',hint:'Visit the office for upgrades, or sleep to start a new day.'};
     if(!G.inForklift)return {p:forklift.position,label:'FORKLIFT',hint:'Walk to your forklift and press F to get in.'};
     if(G.carryingBox){var d=G.carryingBox.userData.destination;return {p:d.center,label:d.name,hint:'Aim for the inner ring. Stop and lower Q to deliver.',delivery:true}}
     var nearest=null,dist=Infinity;boxes.forEach(function(b){if(!b.userData.moved&&b.parent===scene){var n=Math.hypot(b.position.x-entity.position.x,b.position.z-entity.position.z);if(n<dist){dist=n;nearest=b}}});
@@ -2791,7 +2795,7 @@ function activateGame(){
     document.getElementById('titleScreen').style.display='none';document.getElementById('pauseScreen').style.display='none';document.getElementById('summaryScreen').style.display='none';
     ['ui','missionPanel','helpStrip'].forEach(function(id){document.getElementById(id).style.display='block'});
     document.getElementById('debugBtns').style.display='flex';
-    lastTime=performance.now();accumulator=0;aud().resume();startMusic();
+    lastTime=performance.now();accumulator=0;promptFlashUntil=0;aud().resume();startMusic();
 }
 function startGame(mode){
     if(G.phase==='shift_done')G.day++;
