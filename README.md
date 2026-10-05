@@ -16,7 +16,7 @@
 <!-- splarg-itch-media:end -->
 
 
-**Docklands Shift Simulator · v1.40**
+**Docklands Shift Simulator · v1.41**
 
 A relaxed 3D browser forklift sim inspired by the dock job in *Shenmue*. Clock in, drive the harbour, collect crates with the forks, deliver them to colour-coded destinations and try to beat yesterday's work.
 
@@ -74,9 +74,23 @@ The game has no build step, but it loads Three.js from cdnjs, so an internet con
 
 ## Source status
 
-The root `index.html` is the current **v1.40** development/release source preserved on **19 September 2026**.
+The root `index.html` is the current **v1.41** release source (5 October 2026), a bug-fix update to v1.40.
 
-Future changes should be committed after this snapshot so the release remains recoverable in Git history.
+The original **v1.40** release, preserved on **19 September 2026**, is kept unchanged at `development/forklift-simulator-v1.40.html` and remains recoverable in Git history.
+
+### v1.41 fixes
+
+- Minimap heading arrow no longer points backwards when facing north or south; the first-person navigation arrow is no longer mirrored
+- Ending a shift from the pause menu during Fork Fury no longer starts the next game stuck in the arcade
+- Tying the arcade high score no longer claims a new record
+- Camera, zoom, lorry-arrival and arcade-score notices now stay on screen long enough to read
+- Clock-in closes at 10 PM instead of starting an empty shift that wiped yesterday's comparison
+- The upgrade purchase chime plays; music no longer drones under the pause menu or holds a note while sleeping
+- Losing focus while falling asleep now pauses the next day instead of running it muted
+- Lorry, AI forklift and traffic headlights work at night when you're on foot
+- The pub's front wall is solid either side of the door
+- The idle lorry is hidden instead of waiting visibly, and drivable-through, inside the map
+- A new game clears a stale time-speed label; the gamepad Back button only toggles lights while driving
 
 ## Technology
 
