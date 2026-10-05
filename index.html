@@ -2754,7 +2754,7 @@ function drawMinimap(entity,target){
     c.fillStyle='#d1eced';c.fillText('OFFICE',mx(officeTc.x),mz(officeTc.z)-9);c.fillText('BAYS',mx(250),mz(-110)-14);
     boxes.forEach(function(b){if(b.userData.moved||b===G.carryingBox)return;c.fillStyle='#ffdd55';c.fillRect(mx(b.position.x)-3,mz(b.position.z)-3,6,6)});
     if(target){c.strokeStyle='#8fe9ff';c.lineWidth=2;c.beginPath();c.arc(mx(target.p.x),mz(target.p.z),8+Math.sin(G.activeSeconds*4),0,Math.PI*2);c.stroke()}
-    c.save();c.translate(mx(entity.position.x),mz(entity.position.z));c.rotate(Math.PI-entity.rotation.y);c.fillStyle='#fff';c.strokeStyle='#111';c.lineWidth=2;c.beginPath();c.moveTo(0,-9);c.lineTo(6,6);c.lineTo(0,3);c.lineTo(-6,6);c.closePath();c.fill();c.stroke();c.restore();
+    c.save();c.translate(mx(entity.position.x),mz(entity.position.z));c.rotate(entity.rotation.y);c.fillStyle='#fff';c.strokeStyle='#111';c.lineWidth=2;c.beginPath();c.moveTo(0,-9);c.lineTo(6,6);c.lineTo(0,3);c.lineTo(-6,6);c.closePath();c.fill();c.stroke();c.restore();
 }
 function updateGuidance(entity){
     var target=nextTarget(entity),j=G.currentJob;
@@ -2777,7 +2777,7 @@ function updateGuidance(entity){
     warehouseRoofs.forEach(function(w){var reveal=Math.hypot(entity.position.x-w.x,entity.position.z-w.z)<22||target.delivery&&target.label===w.name;
         w.mesh.material.transparent=!!reveal;w.mesh.material.opacity=reveal?.13:1;w.mesh.material.depthWrite=!reveal;});
     var dx=target.p.x-entity.position.x,dz=target.p.z-entity.position.z;
-    var angle=G.cameraMode==='fps'?Math.atan2(dx,dz)-G.fpsYaw:Math.atan2(dx*Math.sin(isoYawCurrent)-dz*Math.cos(isoYawCurrent),-(dx*Math.cos(isoYawCurrent)+dz*Math.sin(isoYawCurrent)));
+    var angle=G.cameraMode==='fps'?G.fpsYaw-Math.atan2(dx,dz):Math.atan2(dx*Math.sin(isoYawCurrent)-dz*Math.cos(isoYawCurrent),-(dx*Math.cos(isoYawCurrent)+dz*Math.sin(isoYawCurrent)));
     _navEl.style.display=_navDistEl.style.display='block';_navEl.style.transform='rotate('+angle+'rad)';_navDistEl.textContent=target.label+' '+Math.round(Math.hypot(dx,dz))+'m';
 }
 function activateGame(){
