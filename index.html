@@ -326,11 +326,13 @@ window.buyUpgrade=buyUpgrade;
 function openShop(){
     G.shopOpen=true;clearInputs();releasePointer();beepOff();renderShop();
     document.getElementById('shopScreen').style.display='flex';
-    if(audioCtx)audioCtx.suspend();
+    // Mute the music instead of suspending audio so purchase chimes still play
+    if(music.masterGain)music.masterGain.gain.setTargetAtTime(0,audioCtx.currentTime,0.05);
 }
 function closeShop(){
     G.shopOpen=false;clearInputs();
     document.getElementById('shopScreen').style.display='none';
+    setMusicVolume(G.musicOn);
     if(audioCtx&&!G.paused)audioCtx.resume();
 }
 
@@ -403,7 +405,7 @@ function showShiftSummary(){
 function dismissSummary(){
     G.showSummary=false;
     document.getElementById('summaryScreen').style.display='none';clearInputs();
-    if(G.mode==='rush'){startGame('rush')}else if(audioCtx)audioCtx.resume();
+    if(G.mode==='rush'){startGame('rush')}else if(audioCtx&&!G.paused)audioCtx.resume();
 }
 
 // ============================================================
@@ -514,7 +516,7 @@ function setMusicVolume(on){
     if(music.masterGain)music.masterGain.gain.setTargetAtTime(on?0.06:0,audioCtx.currentTime,0.1);
 }
 
-function tone(f,d,t,v){if(!G.gameStarted||G.paused||G.shopOpen||G.showSummary||document.hidden)return;t=t||'square';v=v||0.07;var c=aud(),o=c.createOscillator(),g=c.createGain();o.type=t;o.frequency.value=f;g.gain.value=v;g.gain.linearRampToValueAtTime(0,c.currentTime+d);o.connect(g);g.connect(c.destination);o.onended=function(){o.disconnect();g.disconnect()};o.start();o.stop(c.currentTime+d)}
+function tone(f,d,t,v){if(!G.gameStarted||G.paused||G.showSummary||document.hidden)return;t=t||'square';v=v||0.07;var c=aud(),o=c.createOscillator(),g=c.createGain();o.type=t;o.frequency.value=f;g.gain.value=v;g.gain.linearRampToValueAtTime(0,c.currentTime+d);o.connect(g);g.connect(c.destination);o.onended=function(){o.disconnect();g.disconnect()};o.start();o.stop(c.currentTime+d)}
 function sfxHorn(){
     var c=aud();var o1=c.createOscillator(),o2=c.createOscillator(),g=c.createGain();
     o1.type='sawtooth';o2.type='square';o1.frequency.value=220;o2.frequency.value=232;
@@ -604,7 +606,9 @@ var pixelMat=new THREE.ShaderMaterial({
     ].join('\n')
 });
 pixelScene.add(new THREE.Mesh(new THREE.PlaneGeometry(2,2),pixelMat));
-function loseFocus(){clearInputs();if(G.gameStarted&&!G.isFading)setPaused(true);if(audioCtx)audioCtx.suspend();saveGame()}
+// Focus lost mid-fade pauses once the fade ends, so the next day never starts muted and unattended.
+var pauseAfterFade=false;
+function loseFocus(){clearInputs();if(G.gameStarted){if(G.isFading)pauseAfterFade=true;else setPaused(true)}if(audioCtx)audioCtx.suspend();saveGame()}
 window.addEventListener('blur',loseFocus);
 document.addEventListener('visibilitychange',function(){if(document.hidden)loseFocus()});
 window.addEventListener('pagehide',saveGame);
@@ -679,6 +683,7 @@ function updateSky(time){
     for(var i=0;i<nightLights.length;i++){
         var l=nightLights[i];
         if(l.userData&&l.userData.type==='headlight'){l.intensity=(G.lightsOn||(night&&G.inForklift))?2:0}
+        else if(l.userData&&l.userData.type==='vehicle'){l.intensity=night?2:0}
         else if(l.userData&&l.userData.type==='crane'){l.intensity=night?1.2:0}
         else{l.intensity=night?4.5:0}
     }
@@ -915,7 +920,7 @@ var MAP_OBJECTS={
 
   ,
   pubProps:{
-    walls:[{x:-185,z:-280,w:15,d:0.5},{x:-192,z:-275,w:0.5,d:11},{x:-178,z:-275,w:0.5,d:11},{x:-190,z:-270,w:5,d:0.5},{x:-180,z:-270,w:5,d:0.5}],
+    walls:[{x:-185,z:-280,w:15,d:0.5},{x:-192,z:-275,w:0.5,d:11},{x:-178,z:-275,w:0.5,d:11},{x:-189.1,z:-270,w:5.3,d:0.5},{x:-180.9,z:-270,w:5.3,d:0.5}],
     specialsBoard:{x:-178,z:-270},
     arcadeCabinet:{x:-180,z:-277,rot:-Math.PI/2},
     bench:{x:-185,z:-268},
@@ -1610,7 +1615,7 @@ lorry.position.set(300,0,0);lorry.rotation.y=-Math.PI/2;scene.add(lorry);
 // Lorry headlights
 var lorryHL=new THREE.SpotLight(0xffeeaa,0,60,Math.PI/6,0.4,1);
 lorryHL.position.set(0,1.5,6.5);lorryHL.target.position.set(0,0,15);
-lorryHL.userData={type:'headlight'};
+lorryHL.userData={type:'vehicle'};
 lorry.add(lorryHL);lorry.add(lorryHL.target);nightLights.push(lorryHL);
 
 // ============================================================
@@ -1812,7 +1817,7 @@ var aiWG=new THREE.CylinderGeometry(0.4,0.4,0.35,8);
 // AI headlights
 var aiHL=new THREE.SpotLight(0xffeeaa,0,40,Math.PI/6,0.4,1);
 aiHL.position.set(0,1.1,2);aiHL.target.position.set(0,0,12);
-aiHL.userData={type:'headlight'};
+aiHL.userData={type:'vehicle'};
 aiForklift.add(aiHL);aiForklift.add(aiHL.target);nightLights.push(aiHL);
 
 aiForklift.position.set(-100,0,50);scene.add(aiForklift);
@@ -1832,7 +1837,7 @@ function makeTrafficVan(col){
     v.add((function(){var m=new THREE.Mesh(new THREE.BoxGeometry(1.4,0.5,0.08),toonMat({color:0x88bbdd,transparent:true,opacity:0.5}));m.position.set(0,1.8,2.35);return m})());
     // headlights
     var hl=new THREE.SpotLight(0xffeeaa,0,30,Math.PI/7,0.5,1);hl.position.set(0,1,2.2);hl.target.position.set(0,0,10);
-    hl.userData={type:'headlight'};v.add(hl);v.add(hl.target);nightLights.push(hl);
+    hl.userData={type:'vehicle'};v.add(hl);v.add(hl.target);nightLights.push(hl);
     v.userData={headlight:hl};
     return v;
 }
@@ -2046,7 +2051,7 @@ function goToSleep(){
             bannerHTML+='</span>';
         }
         bn.innerHTML=bannerHTML;bn.classList.add('show');
-        setTimeout(function(){document.getElementById('fadeOverlay').classList.remove('active');setTimeout(function(){bn.classList.remove('show');G.isFading=false},1500)},1500);
+        setTimeout(function(){document.getElementById('fadeOverlay').classList.remove('active');setTimeout(function(){bn.classList.remove('show');G.isFading=false;if(pauseAfterFade){pauseAfterFade=false;setPaused(true)}},1500)},1500);
     },1200);
 }
 function updatePauseStats(){
@@ -2165,7 +2170,7 @@ function drawArcade(){
     ARC.scanline=(ARC.scanline+1)%4;c.fillStyle='rgba(0,0,0,0.06)';for(var sy=ARC.scanline;sy<H;sy+=4)c.fillRect(0,sy,W,1);
     if(ARC.state==='gameover'){c.fillStyle='rgba(0,0,0,0.7)';c.fillRect(0,0,W,H);c.fillStyle='#ff3333';c.font='bold 20px monospace';c.fillText('GAME OVER',95,100);
         c.fillStyle='#33ff33';c.font='16px monospace';c.fillText('SCORE: '+ARC.score,110,130);
-        if(ARC.score>=G.arcadeHighScore&&ARC.score>0){c.fillStyle='#ffff33';c.fillText('NEW HIGH SCORE!',80,155)}
+        if(ARC.score>G.arcadeHighScore&&ARC.score>0){c.fillStyle='#ffff33';c.fillText('NEW HIGH SCORE!',80,155)}
         c.fillStyle='#559955';c.font='10px monospace';c.fillText('Returning to dock...',90,185)}
     document.getElementById('arcadeHUD').textContent=ARC.state==='playing'?'FORK FURY | WASD/LStick to move | P/B to quit':'';
 }
@@ -2333,12 +2338,12 @@ function animate(){
             else{
                 if(padPressed('a'))handleSpace();if(padPressed('y'))handleForklift();
                 if(padPressed('x')&&G.inForklift)sfxHorn();
-                if(padPressed('back')){G.lightsOn=!G.lightsOn}
+                if(padPressed('back')&&G.inForklift){G.lightsOn=!G.lightsOn}
             }
         }
     }else if(padPressed('a')){if(pendingResume)resumeSavedGame();else startGame('rush')}
     var frozen=!G.gameStarted||G.paused||G.shopOpen||G.showSummary||G.isFading||document.hidden;
-    if(frozen){accumulator=0;renderGame();return}
+    if(frozen){if(G.isFading)updateMusic(elapsed);accumulator=0;renderGame();return}
     updateMusic(elapsed);
     if(G.arcadeActive){updateArcade(elapsed);renderGame();return}
     accumulator+=elapsed;
@@ -2372,6 +2377,7 @@ function simulate(dt){
     }}else if(tr.phase==='parked'&&allDone()&&G.clockedIn){completeJob();tr.phase='waiting';tr.delay=G.mode==='rush'?0.8:3}
     else if(tr.phase==='waiting'){tr.delay-=dt;if(tr.delay<=0)tr.phase='departing'}
     else if(tr.phase==='departing'){lorry.position.x+=0.5;if(lorry.position.x>=300){tr.phase='offscreen';G.nextJobTimer=G.mode==='rush'?0.8:3+Math.random()*4}}
+    lorry.visible=tr.phase!=='offscreen'; // x=300 is still inside the map, so hide the idle lorry
     if(G.clockedIn&&allDone()&&G.deliveryCount>0&&tr.phase==='offscreen'){G.nextJobTimer-=dt;if(G.nextJobTimer<=0){addStoredStack();spawnJob()}}
 
     // ---- CRANES (subtle life + pulsing beacons) ----
@@ -2791,7 +2797,7 @@ function startGame(mode){
     if(G.phase==='shift_done')G.day++;
     pendingResume=null;clearBoxes();G.mode=mode;G.phase='waking';G.clockedIn=false;G.gameTime=7*60;G.todayWage=0;G.deliveryCount=0;G.targetBoxes=0;
     G.truck={phase:'offscreen',delay:0,targetX:140,targetZ:0,bayIdx:0};lorry.position.set(300,0,0);
-    G.currentJob=null;G.flVel=0;G.forkHeight=0;forksGroup.position.y=0;G.timeScale=1;G.weather='clear';G.inForklift=false;stopEngine();resetShiftStats();
+    G.currentJob=null;G.flVel=0;G.forkHeight=0;forksGroup.position.y=0;G.timeScale=1;showTimeSpeed();G.weather='clear';G.inForklift=false;stopEngine();resetShiftStats();
     player.position.set(83,0,-73);player.rotation.y=Math.PI;forklift.position.set(89,.008,-69);forklift.rotation.y=Math.PI;player.visible=G.cameraMode!=='fps';
     activateGame();
     if(mode==='rush'){
@@ -2833,7 +2839,7 @@ document.getElementById('startDock').addEventListener('click',function(){startGa
 document.getElementById('startRush').addEventListener('click',function(){startGame('rush')});
 document.getElementById('resumeSaved').addEventListener('click',resumeSavedGame);
 document.getElementById('resumeButton').addEventListener('click',function(){setPaused(false)});
-document.getElementById('endShiftButton').addEventListener('click',function(){setPaused(false);if(G.clockedIn)clockOut();else backToMenu()});
+document.getElementById('endShiftButton').addEventListener('click',function(){setPaused(false);if(G.arcadeActive)endArcade();if(G.clockedIn)clockOut();else backToMenu()});
 document.getElementById('recoverButton').addEventListener('click',recoverForklift);
 document.getElementById('summaryContinue').addEventListener('click',dismissSummary);
 document.getElementById('summaryMenu').addEventListener('click',backToMenu);
